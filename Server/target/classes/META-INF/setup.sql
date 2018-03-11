@@ -1,0 +1,59 @@
+insert into ROL (id,nombre,descripcion) values (1, 'ADMIN', 'Administrador del Sistema');
+insert into ROL (id,nombre,descripcion) values (2, 'NORM', 'Normal');
+
+insert into tipos_cuenta (id,nombre,descripcion,taza_interes) values (1,'ahorro normal',null,0.05);
+insert into tipos_cuenta (id,nombre,descripcion,taza_interes) values (2,'ahorro plazo fijo',null,0.12);
+insert into tipos_cuenta (id,nombre,descripcion,taza_interes) values (3,'monetaria',null,0.02);
+
+insert into PARAMETRO_SISTEMA (id,nombre, valor) VALUES (1, 'MODO_DEBUG', '0');
+insert into PARAMETRO_SISTEMA (id,nombre,valor) VALUES (2, 'NUMERO_DECIMALES', '2');
+
+insert into DEPARTAMENTO (id,codigo,nombre) values (1, 'GUA', 'Guatemala');
+insert into DEPARTAMENTO (id,codigo,nombre) values (2, 'CHQ', 'Chiquimula');
+
+insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (1, 'CAP', 'Capital', 1);
+insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (2, 'MXC', 'Mixco', 1);
+insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (3, 'VLN', 'Villa Nueva', 1);
+insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (4, 'CHQ', 'Chiquimula', 2);
+insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (5, 'JOC', 'Jocotan', 2);
+insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (6, 'ESQ', 'Esquipulas', 2);
+
+insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (1, 'Nahum Alarcon','Ciudad',1,'1234124', '1981-07-23' );
+insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (2, 'Yoli Esteban','Zona 4',3, '3423423','1987-05-25');
+insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (3, 'Jorge Leonel Lam Pazos','Zona 6',2,'534563', '1994-01-07');
+insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (4, 'Manuel Mutzus','Centro Zona 1', 4,'3456456','1987-01-02' );
+insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (5, 'Alejandro Rigalt','Zona 2',5,'57456567','1978-02-08');
+insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (6, 'Bern Torres','Zona 3',6,'4567567','1980-01-01');
+
+
+insert into usuario (id,codigo,email,nombre,password,telefono,ID_ROL,ID_CLIENTE) values (1, 'admin', 'admin@admon.com',  'Administrador del Sistema',  null, '1234124', 1,1);
+insert into usuario (id,codigo,email,nombre,password,telefono,ID_ROL,ID_CLIENTE) values (2, 'yesteban', 'yesteban09@gmail.com',  'Yoli Esteban',  null, '3423423', 2,2);
+insert into usuario (id,codigo,email,nombre,password,telefono,ID_ROL,ID_CLIENTE) values (3, 'jlpazos', 'leokirap014@gmail.com',  'Jorge Leonel Lam Pazos',  null, '534563', 2,3);
+insert into usuario (id,codigo,email,nombre,password,telefono,ID_ROL,ID_CLIENTE) values (4, 'mmutzus', 'elmutzus@gmail.com',   'Manuel Mutzus',  null, '3456456', 1,4);
+insert into usuario (id,codigo,email,nombre,password,telefono,ID_ROL,ID_CLIENTE) values (5, 'arigalt', 'arigalt@gmail.com',  'Alejandro Rigalt',  null, '57456567', 2,5);
+insert into usuario (id,codigo,email,nombre,password,telefono,ID_ROL,ID_CLIENTE) values (6, 'btorres', 'bernyt0rr3s@gmail.com',   'Bern Torres',  null, '4567567', 2,6);
+
+
+insert into cuenta (id, moneda,ID_CLIENTE,ID_TIPOCUENTA,fecha_apertura,activo) values (1,'QTZ',1,1,'2010-01-10',1);
+insert into cuenta (id, moneda,ID_CLIENTE,ID_TIPOCUENTA,fecha_apertura,activo) values (2,'QTZ',2,2,'2010-02-11',1);
+insert into cuenta (id, moneda,ID_CLIENTE,ID_TIPOCUENTA,fecha_apertura,activo) values (3,'QTZ',3,3,'2010-03-12',1);
+insert into cuenta (id, moneda,ID_CLIENTE,ID_TIPOCUENTA,fecha_apertura,activo) values (4,'QTZ',4,1,'2010-04-13',1);
+insert into cuenta (id, moneda,ID_CLIENTE,ID_TIPOCUENTA,fecha_apertura,activo) values (5,'QTZ',5,2,'2010-05-14',1);
+insert into cuenta (id, moneda,ID_CLIENTE,ID_TIPOCUENTA,fecha_apertura,activo) values (6,'QTZ',6,3,'2010-06-15',1);
+
+
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (1,'2018-01-11',5000,'deposito',1);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (2,'2018-01-11',6000,'deposito',2);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (3,'2018-01-11',7000,'deposito',3);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (4,'2018-01-11',8000,'deposito',4);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (5,'2018-01-11',9000,'deposito',5);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (6,'2018-01-11',8000,'deposito',6);
+
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (7,'2018-01-13',-100,'retiro',1);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (8,'2018-01-12',-200,'retiro',2);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (9,'2018-01-15',-100,'retiro',3);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (10,'2018-01-13',-300,'retiro',4);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (11,'2018-01-09',-400,'retiro',5);
+INSERT INTO transaccion(id,fecha,monto,tipo_transaccion,ID_CUENTA) values (12,'2018-01-10',-150,'retiro',6);
+
+Commit;
