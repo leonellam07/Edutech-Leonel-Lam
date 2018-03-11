@@ -28,6 +28,12 @@ public class TransaccionDaoImp implements TransaccionDao {
                 .getResultList();
     }
 
+    public Double Monto(Integer id) {
+        return this.em.createNamedQuery("Transaccion.findMonto", Double.class)
+                .setParameter("idcuenta", id)
+                .getSingleResult();
+    }
+
     @Override
     public Transaccion depositar(Transaccion entity) {
         this.em.persist(entity);

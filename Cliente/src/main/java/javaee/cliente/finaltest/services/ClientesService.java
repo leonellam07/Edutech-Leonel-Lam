@@ -22,7 +22,7 @@ public class ClientesService {
 
         try {
 
-            URL url = new URL("http://localhost:8080/RESTfulExample/json/product/get");
+            URL url = new URL("http://localhost:8081/finaltest/api/clientes");
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.setRequestProperty("Accept", "application/json");

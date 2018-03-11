@@ -33,8 +33,15 @@ public class TransaccionEndpoint {
     @GET
     @Path("{id}") //Id de la cuenta
     @Produces({"application/json"})
-    public List<Transaccion> findAll(@PathParam("id") Integer id) {
+    public List<Transaccion> buscarTransacciones(@PathParam("id") Integer id) {
         return this.tranDao.findAll(id);
+    }
+
+    @GET
+    @Produces({"application/json"})
+    @Path("total/{id}") //Id de la cuenta
+    public Double montoCuenta(@PathParam("id") Integer id) {
+        return this.tranDao.Monto(id);
     }
 
     @POST

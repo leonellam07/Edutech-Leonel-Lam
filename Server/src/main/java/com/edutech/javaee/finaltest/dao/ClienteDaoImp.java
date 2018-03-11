@@ -42,6 +42,7 @@ public class ClienteDaoImp implements ClienteDao {
     
     @Override
     public Cliente save(Cliente entity) {
+        System.err.println(entity);
         this.em.persist(entity);
         return entity;
     }

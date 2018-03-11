@@ -46,15 +46,15 @@ public class Cuenta implements Serializable {
 
     private boolean activo;
 
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente cliente;
 
-    @JoinColumn(name = "id_tipocuenta", referencedColumnName = "id")
     @OneToOne
+    @JoinColumn(name = "id_tipocuenta", referencedColumnName = "id")
     private TiposCuenta tipoCuenta;
 
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "cuenta")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta", fetch = FetchType.EAGER)
     private List<Transaccion> listaTransacciones;
 
     public Integer getId() {

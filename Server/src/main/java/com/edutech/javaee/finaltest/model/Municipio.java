@@ -21,8 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
 
 public class Municipio implements Serializable {
 
-    
-    
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "municipioGen")
     @SequenceGenerator(name = "municipioGen", sequenceName = "municipio_seq", initialValue = 10)

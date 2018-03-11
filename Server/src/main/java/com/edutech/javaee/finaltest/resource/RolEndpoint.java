@@ -3,7 +3,6 @@ package com.edutech.javaee.finaltest.resource;
 import com.edutech.javaee.finaltest.dao.RolDaoImp;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
 import com.edutech.javaee.finaltest.model.Rol;
-import com.edutech.javaee.finaltest.model.TiposCuenta;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;

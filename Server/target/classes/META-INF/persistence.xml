@@ -10,7 +10,6 @@
       <property name="eclipselink.logging.level" value="FINE"/>
       <property name="openjpa.Log" value="DefaultLevel=WARN, Runtime=INFO, Tool=INFO, SQL=TRACE"/>
       <property name="eclipselink.query-results-cache" value="false"/>
-      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
     </properties>
   </persistence-unit>
 </persistence>
