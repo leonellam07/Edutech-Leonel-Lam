@@ -1,2 +1,2 @@
-javaee\cliente\finaltest\main\start.class
-javaee\cliente\finaltest\services\ClientesService.class
+com\javaee\finaltest\cliente\MainApp.class
+com\javaee\finaltest\cliente\FXMLController.class
