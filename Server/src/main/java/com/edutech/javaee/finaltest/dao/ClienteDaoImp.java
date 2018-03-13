@@ -25,7 +25,7 @@ public class ClienteDaoImp implements ClienteDao {
     public Cliente find(Integer id) {
         try {
             return this.em
-                    .createQuery("SELECT u FROM Cliente u JOIN FETCH u.muni  WHERE u.id = :parametro", Cliente.class)
+                    .createQuery("SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni JOIN FETCH u.listaCuentas WHERE u.id = :parametro", Cliente.class)
                     .setParameter("parametro", id)
                     .getSingleResult();
         } catch (NoResultException nre) {
@@ -36,7 +36,7 @@ public class ClienteDaoImp implements ClienteDao {
     @Override
     public List<Cliente> findAll() {
         return this.em
-                .createQuery("SELECT u FROM Cliente u JOIN FETCH u.muni  ", Cliente.class)
+                .createQuery("SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni   ", Cliente.class)
                 .getResultList();
     }
     

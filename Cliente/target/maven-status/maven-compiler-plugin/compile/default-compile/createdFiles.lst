@@ -1,2 +1,12 @@
+com\javaee\finaltest\dto\Cliente.class
 com\javaee\finaltest\cliente\MainApp.class
+com\javaee\finaltest\dto\Municipio.class
 com\javaee\finaltest\cliente\FXMLController.class
+com\javaee\finaltest\dto\Cuenta.class
+com\javaee\finaltest\dto\ParametroSistema.class
+com\javaee\finaltest\cliente\FXMLController$1.class
+com\javaee\finaltest\dto\TiposCuenta.class
+com\javaee\finaltest\dto\Transaccion.class
+com\javaee\finaltest\dto\Departamento.class
+com\javaee\finaltest\dto\Usuario.class
+com\javaee\finaltest\dto\Rol.class

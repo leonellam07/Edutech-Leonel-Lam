@@ -24,7 +24,7 @@ public class CuentaDaoImp implements CuentaDao {
     public Cuenta find(Integer id) {
         try {
             return this.em
-                    .createQuery("SELECT DISTINCT u FROM Cuenta u WHERE u.id = :id", Cuenta.class)
+                    .createQuery("SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.id = :id", Cuenta.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (NoResultException nre) {
@@ -35,7 +35,7 @@ public class CuentaDaoImp implements CuentaDao {
     @Override
     public List<Cuenta> findAll() {
         return this.em
-                .createQuery("SELECT DISTINCT u FROM Cuenta u ", Cuenta.class)
+                .createQuery("SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta ", Cuenta.class)
                 .getResultList();
     }
 

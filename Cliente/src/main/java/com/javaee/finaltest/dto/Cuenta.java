@@ -3,58 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.edutech.javaee.finaltest.model;
+package com.javaee.finaltest.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author leolp
  */
-@Entity
-@Table(name = "CUENTA")
 public class Cuenta implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "cuentaGen")
-    @SequenceGenerator(name = "cuentaGen", sequenceName = "cuenta_seq", initialValue = 10)
     private Integer id;
 
     private String moneda;
 
-    @Column(name = "fecha_apertura")
-    @Temporal(TemporalType.DATE)
     private Date fechaApertura;
 
     private boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente cliente;
 
-    @OneToOne
-    @JoinColumn(name = "id_tipocuenta", referencedColumnName = "id")
     private TiposCuenta tipoCuenta;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta", fetch = FetchType.LAZY)
+    
     private List<Transaccion> listaTransacciones;
 
     public Cuenta() {
@@ -109,7 +81,6 @@ public class Cuenta implements Serializable {
         this.activo = activo;
     }
 
-    @XmlTransient
     public Cliente getCliente() {
         return cliente;
     }

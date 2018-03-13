@@ -5,9 +5,10 @@
  */
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.CuentaDaoImp;
+import com.edutech.javaee.finaltest.dao.MunicipioDaoImp;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
-import com.edutech.javaee.finaltest.model.Cuenta;
+import com.edutech.javaee.finaltest.model.Cliente;
+import com.edutech.javaee.finaltest.model.Municipio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -24,44 +25,32 @@ import javax.ws.rs.core.Response;
  * @author leolp
  */
 @Stateless
-@Path("/cuentas")
-public class CuentaEnpoint {
+@Path("/municipios")
+public class MunicipioEndpoint {
 
     @Inject
-    private CuentaDaoImp dao;
+    private MunicipioDaoImp munDao;
 
     @GET
     @Produces({"application/json"})
-    public List<Cuenta> findAll() {
-        List<Cuenta> lista = new ArrayList<>();
-        for (Cuenta cuenta : this.dao.findAll()) {
-            Cuenta cuentaNueva = new Cuenta(
-                    cuenta.getMoneda(),
-                    cuenta.getFechaApertura(),
-                    cuenta.isActivo(),
-                    cuenta.getCliente(), 
-                    cuenta.getTipoCuenta()
-            );
-
-            lista.add(cuentaNueva);
-        }
-
-        return lista;
+    public List<Municipio> findAll() {
+        return this.munDao.findAll();
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findBy(@PathParam("id") Integer id) {
-        Cuenta cuenta = this.dao.find(id);
-        if (cuenta == null) {
+    public Response findById(@PathParam("id") Integer id) {
+        Municipio municipio = this.munDao.findById(id);
+
+        if (municipio == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
                     .build();
         }
 
-        return Response.ok(cuenta, MediaType.APPLICATION_JSON).build();
+        return Response.ok(municipio, MediaType.APPLICATION_JSON).build();
     }
 
 }

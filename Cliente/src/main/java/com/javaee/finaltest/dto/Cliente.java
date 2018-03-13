@@ -3,52 +3,29 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.edutech.javaee.finaltest.model;
+package com.javaee.finaltest.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  *
  * @author leolp
  */
-@Entity
-@Table(name = "CLIENTE")
 public class Cliente implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "clienteGen")
-    @SequenceGenerator(name = "clienteGen", sequenceName = "cliente_seq", initialValue = 10)
     private Integer id;
 
     private String nombre;
     private String direccion;
 
-    @OneToOne
-    @JoinColumn(name = "id_muni", referencedColumnName = "ID")
     private Municipio muni;
 
     private String nit;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente")
     private List<Cuenta> listaCuentas;
 
     public Cliente() {
@@ -62,17 +39,6 @@ public class Cliente implements Serializable {
         this.fechaNacimiento = fecha_nacimiento;
     }
 
-    public Cliente(Integer id, String nombre, String direccion, Municipio muni, String nit, Date fechaNacimiento, List<Cuenta> listaCuentas) {
-        this.id = id;
-        this.nombre = nombre;
-        this.direccion = direccion;
-        this.muni = muni;
-        this.nit = nit;
-        this.fechaNacimiento = fechaNacimiento;
-        this.listaCuentas = listaCuentas;
-    }
-
-    //@XmlTransient
     public List<Cuenta> getListaCuentas() {
         return listaCuentas;
     }

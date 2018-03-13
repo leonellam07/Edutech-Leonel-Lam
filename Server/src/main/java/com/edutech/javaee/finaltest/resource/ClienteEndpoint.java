@@ -6,9 +6,11 @@
 package com.edutech.javaee.finaltest.resource;
 
 import com.edutech.javaee.finaltest.dao.ClienteDaoImp;
+import com.edutech.javaee.finaltest.dao.MunicipioDaoImp;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
 import com.edutech.javaee.finaltest.model.Cliente;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -34,11 +36,29 @@ public class ClienteEndpoint {
 
     @Inject
     private ClienteDaoImp cliDao;
+    @Inject
+    private MunicipioDaoImp munDao;
 
     @GET
     @Produces({"application/json"})
     public List<Cliente> findAll() {
-        return this.cliDao.findAll();
+        List<Cliente> lista = new ArrayList<>();
+//        this.cliDao.findAll().stream().map((cliente) -> {
+//            cliente.getListaCuentas().forEach((cuenta) -> {
+//                cuenta.setListaTransacciones(null);
+//            });
+//            return cliente;
+//        }).forEachOrdered((cliente) -> {
+//            lista.add(cliente);
+//        });
+//        
+//        return lista;
+        this.cliDao.findAll().forEach((cliente) -> {
+            cliente.setListaCuentas(null);
+            lista.add(cliente);
+        });
+
+        return lista;
     }
 
     @GET
@@ -46,6 +66,7 @@ public class ClienteEndpoint {
     @Produces({"application/json"})
     public Response findById(@PathParam("id") Integer id) {
         Cliente cliente = this.cliDao.find(id);
+
         if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
@@ -53,13 +74,26 @@ public class ClienteEndpoint {
                     .build();
         }
 
+        cliente.getListaCuentas().forEach((cuenta) -> {
+            cuenta.setListaTransacciones(null);
+        });
+
         return Response.ok(cliente, MediaType.APPLICATION_JSON).build();
     }
 
     @POST
     @Consumes({"application/json"})
     @Produces({"application/json"})
+    @Path("/create")
     public Response create(Cliente entity) throws ParseException {
+        Cliente cliente = new Cliente(
+                entity.getNombre(),
+                entity.getDireccion(),
+                this.munDao.findById(entity.getMuni().getId()),
+                entity.getNit(),
+                entity.getFechaNacimiento()
+        );
+
         this.cliDao.save(entity);
         return Response.ok(entity).build();
     }
