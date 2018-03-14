@@ -65,4 +65,8 @@ public class Municipio implements Serializable {
         this.departamento = departamento;
     }
 
+    @Override
+    public String toString() {
+        return codigo + ", " + nombre;
+    }
 }

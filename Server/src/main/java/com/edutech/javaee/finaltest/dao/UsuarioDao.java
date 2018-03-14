@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface UsuarioDao {
 
-    public Usuario find(Integer id);
+    public Usuario find(String id);
 
     public List<Usuario> findAll();
 
@@ -22,5 +22,5 @@ public interface UsuarioDao {
 
     public Usuario edit(Usuario entity);
 
-    public Usuario remove(Integer id);
+    public Usuario remove(String user);
 }

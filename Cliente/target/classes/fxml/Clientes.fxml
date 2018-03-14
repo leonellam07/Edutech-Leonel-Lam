@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="458.0" prefWidth="600.0" stylesheets="@../styles/Botones.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaee.finaltest.views.ClientesController">
+   <children>
+      <Label layoutX="38.0" layoutY="22.0" text="Clientes" textFill="#49a492">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblClientes" layoutX="36.0" layoutY="229.0" prefHeight="200.0" prefWidth="528.0" />
+      <Label contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="47.0" layoutY="81.0" text="Nombre:">
+         <graphic>
+            <TextField fx:id="txtNombre" prefHeight="25.0" prefWidth="321.0" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="47.0" layoutY="113.0" text="Dirección:">
+         <graphic>
+            <TextField fx:id="txtDireccion" prefHeight="25.0" prefWidth="392.0" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" graphicTextGap="35.0" layoutX="47.0" layoutY="145.0" text="NIT:">
+         <graphic>
+            <TextField fx:id="txtNit" prefHeight="25.0" prefWidth="137.0" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="47.0" layoutY="185.0" text="Departamento:">
+         <graphic>
+            <ComboBox fx:id="cmbDepartamentos" onAction="#eventDepartamento" prefWidth="150.0" />
+         </graphic>
+      </Label>
+      <Label contentDisplay="RIGHT" layoutX="302.0" layoutY="185.0" text="Municipio:">
+         <graphic>
+            <ComboBox fx:id="cmbMunicipios" prefWidth="150.0" />
+         </graphic>
+      </Label>
+      <Button layoutX="456.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="112.0" styleClass="nbutton" text="Guardar" />
+      <Label contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="258.0" layoutY="145.0" text="fecha nacimiento:">
+         <graphic>
+            <DatePicker fx:id="dtpFechaNacimiento" prefHeight="25.0" prefWidth="152.0" />
+         </graphic>
+      </Label>
+   </children>
+</AnchorPane>

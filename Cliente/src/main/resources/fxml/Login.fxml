@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" styleClass="marca-agua" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.javaee.finaltest.views.LoginController">
+   <children>
+      <AnchorPane layoutX="81.0" layoutY="74.0" prefHeight="326.0" prefWidth="269.0" styleClass="menu" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="75.0">
+         <children>
+            <Button fx:id="btnIniciarSesion" layoutX="119.0" layoutY="358.0" mnemonicParsing="false" onAction="#IniciarSesion" prefHeight="25.0" prefWidth="123.0" styleClass="rdbutton3" text="Iniciar Sesión" />
+            <PasswordField fx:id="pswPassword" layoutX="106.0" layoutY="278.0" />
+            <Label layoutX="144.0" layoutY="244.0" text="Contraseña:" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="154.0" layoutY="173.0" text="Usuario:" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtUsuario" layoutX="106.0" layoutY="206.0" />
+            <ImageView fitHeight="101.0" fitWidth="129.0" layoutX="130.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/user.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+   </children>
+   <stylesheets>
+      <URL value="@../styles/Menu.css" />
+      <URL value="@../styles/Botones.css" />
+   </stylesheets>
+</AnchorPane>

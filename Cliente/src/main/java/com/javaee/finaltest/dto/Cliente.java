@@ -6,7 +6,6 @@
 package com.javaee.finaltest.dto;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 

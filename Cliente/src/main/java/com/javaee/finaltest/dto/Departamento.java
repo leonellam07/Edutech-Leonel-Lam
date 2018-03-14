@@ -55,4 +55,10 @@ public class Departamento implements Serializable {
     public void setMunicipios(List<Municipio> municipios) {
         this.municipios = municipios;
     }
+
+    @Override
+    public String toString() {
+        return codigo + ", " + nombre;
+    }
+
 }

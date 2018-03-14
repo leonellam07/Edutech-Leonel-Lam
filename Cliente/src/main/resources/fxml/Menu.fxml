@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="com.javaee.finaltest.views.MenuController">
+   <children>
+      <BorderPane layoutX="133.0" layoutY="85.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="600.0" prefWidth="74.0" style="-fx-background-color: #474848;" stylesheets="@../styles/Botones.css" BorderPane.alignment="CENTER">
+               <children>
+                  <Button fx:id="btnTransaccion" contentDisplay="TOP" maxWidth="75.0" mnemonicParsing="false" prefHeight="75.0" styleClass="nbutton" text="Transacciones">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Coins-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                     <font>
+                        <Font size="4.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="btnClientes" contentDisplay="TOP" maxWidth="75.0" mnemonicParsing="false" prefHeight="75.0" styleClass="nbutton" text="Clientes">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Certificate-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Button fx:id="btnUsuarios" contentDisplay="TOP" maxWidth="75.0" mnemonicParsing="false" prefHeight="75.0" styleClass="nbutton" text="Usuarios">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/Safe-128.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <AnchorPane prefHeight="60.0" prefWidth="800.0" style="-fx-background-color: #01CDB4;" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane prefHeight="65.0" prefWidth="74.0" style="-fx-background-color: #33A093;" />
+                  <Label layoutX="101.0" layoutY="13.0" text="Sistema Bancario" textFill="#ccffed">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </top>
+         <center>
+            <AnchorPane fx:id="panel" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

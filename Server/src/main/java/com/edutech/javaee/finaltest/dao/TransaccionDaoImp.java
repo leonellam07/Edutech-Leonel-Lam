@@ -42,9 +42,9 @@ public class TransaccionDaoImp implements TransaccionDao {
 
     @Override
     public Transaccion transferir(Transaccion entity) {
-        float total = this.em.createNamedQuery("Transaccion.findMonto", Float.class)
+        Float total = (this.em.createNamedQuery("Transaccion.findMonto", Double.class)
                 .setParameter("idcuenta", entity.getCuenta().getId())
-                .getSingleResult();
+                .getSingleResult()).floatValue();
         if (total > 0) {
             return null;
         }

@@ -10,17 +10,17 @@ import javax.persistence.PersistenceContext;
  *
  * @author nahum
  */
-public class UsuarioDaoImp implements UsuarioDao{
+public class UsuarioDaoImp implements UsuarioDao {
 
     @PersistenceContext(unitName = "primary")
     EntityManager em;
 
     @Override
-    public Usuario find(Integer id) {
+    public Usuario find(String user) {
         try {
             return this.em
-                    .createQuery("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.id = :parametro", Usuario.class)
-                    .setParameter("parametro", id)
+                    .createQuery("SELECT u FROM Usuario u JOIN FETCH u.rol WHERE u.codigo = :parametro", Usuario.class)
+                    .setParameter("parametro", user)
                     .getSingleResult();
         } catch (NoResultException nre) {
             return null;
@@ -42,7 +42,7 @@ public class UsuarioDaoImp implements UsuarioDao{
 
     @Override
     public Usuario edit(Usuario entity) {
-        Usuario usuario = this.find(entity.getId());
+        Usuario usuario = this.find(entity.getCodigo());
         if (usuario != null) {
             usuario.setCodigo(entity.getCodigo());
             usuario.setEmail(entity.getEmail());
@@ -55,8 +55,8 @@ public class UsuarioDaoImp implements UsuarioDao{
     }
 
     @Override
-    public Usuario remove(Integer id) {
-        Usuario usuario = this.find(id);
+    public Usuario remove(String user) {
+        Usuario usuario = this.find(user);
         this.em.remove(usuario);
         return usuario;
     }

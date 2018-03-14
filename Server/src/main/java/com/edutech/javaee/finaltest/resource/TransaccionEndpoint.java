@@ -29,6 +29,8 @@ public class TransaccionEndpoint {
 
     @Inject
     TransaccionDaoImp tranDao;
+    
+    
 
     @GET
     @Path("{id}") //Id de la cuenta
@@ -49,7 +51,7 @@ public class TransaccionEndpoint {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response depositar(Transaccion entity) {
-
+//        entity.setCuenta(this.);
         this.tranDao.depositar(entity);
         return Response.ok(entity).build();
     }

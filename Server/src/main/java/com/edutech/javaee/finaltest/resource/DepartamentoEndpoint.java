@@ -13,7 +13,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
-
 /**
  *
  * @author nahum
@@ -30,31 +29,33 @@ public class DepartamentoEndpoint {
     @Produces({"application/json"})
     public Response findById(@PathParam("id") Integer id) {
         Departamento departamento = this.dao.find(id);
-        if (departamento == null)
+        if (departamento == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
                     .build();
-        
-        return Response.ok(departamento).build();    }
-    
+        }
+
+        return Response.ok(departamento).build();
+    }
+
     @GET
     @Produces({"application/json"})
     public List<Departamento> findAll() {
-        List<Departamento> deptosDto;
-        deptosDto = new ArrayList<>();
-        
-        this.dao.findAll()
-                .stream()
-                .forEach((departamento) -> deptosDto.add(
-                    new Departamento (
-                        departamento.getId(),
-                        departamento.getCodigo(), 
-                        departamento.getNombre()
-                    )
-                ));
-        return deptosDto;
+//        List<Departamento> deptosDto;
+//        deptosDto = new ArrayList<>();
+//        
+//        this.dao.findAll()
+//                .stream()
+//                .forEach((departamento) -> deptosDto.add(
+//                    new Departamento (
+//                        departamento.getId(),
+//                        departamento.getCodigo(), 
+//                        departamento.getNombre()
+//                    )
+//                ));
+//        return deptosDto;
+        return this.dao.findAll();
     }
 
-    
 }

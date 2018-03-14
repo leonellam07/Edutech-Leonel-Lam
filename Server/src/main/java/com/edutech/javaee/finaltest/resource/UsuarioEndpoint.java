@@ -62,10 +62,10 @@ public class UsuarioEndpoint {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{user}")
     @Produces({"application/json"})
-    public Response findById(@PathParam("id") Integer id) {
-        Usuario usuario = this.usuarioDao.find(id);
+    public Response findById(@PathParam("user") String user) {
+        Usuario usuario = this.usuarioDao.find(user);
         if (usuario == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
@@ -106,10 +106,10 @@ public class UsuarioEndpoint {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("{user}")
     @Produces({"application/json"})
-    public Response delete(@PathParam("id") Integer id) {
-        Usuario usuario = this.usuarioDao.remove(id);
+    public Response delete(@PathParam("id") String user) {
+        Usuario usuario = this.usuarioDao.remove(user);
 
         if (usuario == null) {
             return Response

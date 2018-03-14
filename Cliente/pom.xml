@@ -11,7 +11,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mainClass>com.javaee.finaltest.cliente.MainApp</mainClass>
+        <mainClass>com.javaee.finaltest.views.MainApp</mainClass>
     </properties>
 
     <organization>
