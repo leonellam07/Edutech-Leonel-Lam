@@ -5,18 +5,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import com.edutech.javaee.finaltest.dao.interfaces.DepartamentoInterface;
 
 /**
  *
  * @author nahum
  */
-public class DepartamentoDao implements DepartamentoInterface {
+public class DepartamentoDao {
 
     @PersistenceContext(unitName = "primary")
     EntityManager em;
 
-    @Override
     public Departamento buscar(Integer id) {
         try {
             return this.em
@@ -28,12 +26,10 @@ public class DepartamentoDao implements DepartamentoInterface {
         }
     }
 
-    @Override
     public List<Departamento> listar() {
         return this.em.createNamedQuery("Departamento.buscarTodo").getResultList();
     }
 
-    @Override
     public Departamento guardar(Departamento entity) {
 
         this.setChildren(entity);
@@ -42,7 +38,6 @@ public class DepartamentoDao implements DepartamentoInterface {
 
     }
 
-    @Override
     public Departamento editar(Departamento entity) {
 
         if (this.buscar(entity.getId()) != null) {
@@ -55,7 +50,6 @@ public class DepartamentoDao implements DepartamentoInterface {
 
     }
 
-    @Override
     public Departamento eliminar(Integer id) {
         Departamento departamento = this.buscar(id);
         this.em.remove(departamento);

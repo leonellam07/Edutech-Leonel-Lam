@@ -9,6 +9,8 @@ import com.edutech.javaee.finaltest.dao.CuentaDao;
 import com.edutech.javaee.finaltest.dao.TransaccionDao;
 import com.edutech.javaee.finaltest.model.Cuenta;
 import com.edutech.javaee.finaltest.model.Transaccion;
+import java.util.ArrayList;
+import java.util.List;
 import javax.inject.Inject;
 
 /**
@@ -23,8 +25,8 @@ public class TransaccionBll {
     private CuentaDao ctaDao;
 
     public Transaccion debitar(Transaccion entity) {
-        Double total = this.tranDao.monto(entity.getId());
-
+        entity.setIdCuentaTrans(null);
+        Double total = this.tranDao.monto(entity.getCuenta().getId());
         if (total - entity.getMonto() > 0) {
             entity.setMonto(0 - entity.getMonto());
             this.tranDao.guardar(entity);
@@ -35,9 +37,8 @@ public class TransaccionBll {
     }
 
     public Transaccion transferir(Transaccion entity) {
-        Double total = this.tranDao.monto(entity.getId());
+        Double total = this.tranDao.monto(entity.getCuenta().getId());
         if (total - entity.getMonto() > 0) {
-            entity.setMonto(0 - entity.getMonto());
 
             Cuenta cuenta = this.ctaDao.buscar(entity.getIdCuentaTrans());
             if (cuenta == null) {
@@ -48,13 +49,14 @@ public class TransaccionBll {
                     cuenta,
                     entity.getMonto(),
                     entity.getTipoTransaccion(),
-                    entity.getDetalle(),
+                    "Transferencia a la cuenta:{" + entity.getCuenta().getId() + "}, " + entity.getDetalle(),
                     entity.getIdCuentaTrans()
             );
-            entity.setMonto(0 - entity.getMonto());
-
             this.tranDao.guardar(transferencia);
+
+            entity.setMonto(0 - entity.getMonto());
             this.tranDao.guardar(entity);
+
             return entity;
         }
 
@@ -62,8 +64,32 @@ public class TransaccionBll {
     }
 
     public Transaccion depositar(Transaccion entity) {
+        entity.setIdCuentaTrans(null);
         this.tranDao.guardar(entity);
         return entity;
+    }
+
+    public List<Transaccion> listaTransacciones(Integer idCuenta) {
+        List<Transaccion> lista = new ArrayList<>();
+        for (Transaccion transaccion : this.tranDao.listaTransacciones(idCuenta)) {
+            Transaccion dtoTransaccion = new Transaccion(
+                    transaccion.getId(),
+                    null,
+                    transaccion.getFecha(),
+                    transaccion.getMonto(),
+                    transaccion.getTipoTransaccion(),
+                    transaccion.getDetalle(),
+                    transaccion.getIdCuentaTrans()
+            );
+            lista.add(dtoTransaccion);
+        }
+
+        return lista;
+    }
+
+    public Double totalCuenta(Integer idCuenta) {
+        Double total = this.tranDao.monto(idCuenta);
+        return total;
     }
 
 }

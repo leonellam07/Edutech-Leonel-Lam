@@ -7,6 +7,7 @@ package com.edutech.javaee.finaltest.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -60,13 +60,15 @@ public class Transaccion implements Serializable {
 
     public Transaccion() {
     }
-    
-     public Transaccion(Cuenta cuenta, float monto, TipoTransaccion tipoTransaccion, String detalle) {
+
+    public Transaccion(Integer id, Cuenta cuenta, Date fecha, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaTrans) {
+        this.id = id;
         this.cuenta = cuenta;
-        this.fecha = new Date();
+        this.fecha = fecha;
         this.monto = monto;
         this.tipoTransaccion = tipoTransaccion;
         this.detalle = detalle;
+        this.idCuentaTrans = idCuentaTrans;
     }
 
     public Transaccion(Cuenta cuenta, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaTrans) {
@@ -78,7 +80,14 @@ public class Transaccion implements Serializable {
         this.idCuentaTrans = idCuentaTrans;
     }
 
-    @XmlTransient
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public Cuenta getCuenta() {
         return cuenta;
     }
@@ -103,12 +112,12 @@ public class Transaccion implements Serializable {
         this.monto = monto;
     }
 
-    public Integer getId() {
-        return id;
+    public TipoTransaccion getTipoTransaccion() {
+        return tipoTransaccion;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTipoTransaccion(TipoTransaccion tipoTransaccion) {
+        this.tipoTransaccion = tipoTransaccion;
     }
 
     public String getDetalle() {
@@ -125,14 +134,6 @@ public class Transaccion implements Serializable {
 
     public void setIdCuentaTrans(Integer idCuentaTrans) {
         this.idCuentaTrans = idCuentaTrans;
-    }
-
-    public TipoTransaccion getTipoTransaccion() {
-        return tipoTransaccion;
-    }
-
-    public void setTipoTransaccion(TipoTransaccion tipoTransaccion) {
-        this.tipoTransaccion = tipoTransaccion;
     }
 
 }

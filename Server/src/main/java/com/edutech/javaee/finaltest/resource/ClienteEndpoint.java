@@ -46,7 +46,7 @@ public class ClienteEndpoint {
     @Produces({"application/json"})
     public Response buscarId(@PathParam("id") Integer id) {
 
-        Cliente cliente = new ClienteBll().buscarId(id);
+        Cliente cliente = this.cliBll.buscarId(id);
         if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)

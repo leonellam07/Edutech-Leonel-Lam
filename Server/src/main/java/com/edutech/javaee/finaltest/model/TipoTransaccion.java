@@ -5,26 +5,31 @@
  */
 package com.edutech.javaee.finaltest.model;
 
+import java.io.Serializable;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author leolp
  */
-public class TipoTransaccion {
+@Entity
+@Table(name = "TIPO_TRANSACCION")
+public class TipoTransaccion implements Serializable {
 
     @Id
     private Integer id;
 
-    @Column(unique = true)
-    private String codigo;
     private String nombre;
     private String descripcion;
 
-    public TipoTransaccion(Integer id, String codigo, String nombre, String descripcion) {
+    public TipoTransaccion() {
+    }
+
+    public TipoTransaccion(Integer id, String nombre, String descripcion) {
         this.id = id;
-        this.codigo = codigo;
         this.nombre = nombre;
         this.descripcion = descripcion;
     }
@@ -35,14 +40,6 @@ public class TipoTransaccion {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getNombre() {

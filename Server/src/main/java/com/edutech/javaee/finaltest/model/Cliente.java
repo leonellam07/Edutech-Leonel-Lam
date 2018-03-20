@@ -31,7 +31,7 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "CLIENTE")
 @NamedQueries({
-    @NamedQuery(name = "Cliente.buscar", query = "SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni JOIN FETCH u.listaCuentas WHERE u.id = :idCliente")
+    @NamedQuery(name = "Cliente.buscar", query = "SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni WHERE u.id = :idCliente")
     ,
     @NamedQuery(name = "Cliente.buscarTodo", query = "SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni")
 })
@@ -46,7 +46,7 @@ public class Cliente implements Serializable {
     private String direccion;
 
     @OneToOne
-    @JoinColumn(name = "id_muni", referencedColumnName = "ID")
+    @JoinColumn(name = "id_muni", referencedColumnName = "ID")  
     private Municipio muni;
 
     private String nit;

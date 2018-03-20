@@ -10,18 +10,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import com.edutech.javaee.finaltest.dao.interfaces.TiposCuentaInterface;
 
 /**
  *
  * @author leolp
  */
-public class TiposCuentaDao implements TiposCuentaInterface {
+public class TiposCuentaDao {
 
     @PersistenceContext(unitName = "primary")
     EntityManager em;
 
-    @Override
     public TiposCuenta buscar(Integer id) {
         try {
             return this.em
@@ -33,7 +31,6 @@ public class TiposCuentaDao implements TiposCuentaInterface {
         }
     }
 
-    @Override
     public List<TiposCuenta> listar() {
         return this.em
                 .createQuery("SELECT u FROM TiposCuenta u", TiposCuenta.class)

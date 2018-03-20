@@ -5,25 +5,22 @@
  */
 package com.edutech.javaee.finaltest.dao;
 
-import com.edutech.javaee.finaltest.model.Cuenta;
 import com.edutech.javaee.finaltest.model.Transaccion;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import com.edutech.javaee.finaltest.dao.interfaces.TransaccionInterface;
 
 /**
  *
  * @author leolp
  */
-public class TransaccionDao implements TransaccionInterface {
+public class TransaccionDao {
 
     @PersistenceContext(unitName = "primary")
     EntityManager em;
 
-    @Override
     public List<Transaccion> listaTransacciones(Integer id) {
-        return this.em.createQuery("SELECT u FROM Transaccion u WHERE u.cuenta.id = :id", Transaccion.class)
+        return this.em.createQuery("SELECT DISTINCT u FROM Transaccion u WHERE u.cuenta.id = :id", Transaccion.class)
                 .setParameter("id", id)
                 .getResultList();
     }
@@ -34,7 +31,6 @@ public class TransaccionDao implements TransaccionInterface {
                 .getSingleResult();
     }
 
-    @Override
     public Transaccion guardar(Transaccion entity) {
         this.em.persist(entity);
         return entity;

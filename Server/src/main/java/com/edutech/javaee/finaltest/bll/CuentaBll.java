@@ -21,7 +21,7 @@ public class CuentaBll {
     @Inject
     private CuentaDao ctaDao;
     @Inject
-    ClienteDao cliDao;
+    private ClienteDao cliDao;
 
     public List<Cuenta> obtenerLista() {
 
@@ -49,7 +49,7 @@ public class CuentaBll {
 
         if (cuenta != null) {
             cuenta.setActivo(entity.isActivo());
-            cuenta.setCliente(entity.getCliente());
+            cuenta.setCliente(this.cliDao.buscar(entity.getCliente().getId()));
             cuenta.setFechaApertura(entity.getFechaApertura());
             cuenta.setMoneda(entity.getMoneda());
             cuenta.setTipoCuenta(entity.getTipoCuenta());

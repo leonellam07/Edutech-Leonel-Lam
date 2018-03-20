@@ -5,7 +5,7 @@
  */
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.TransaccionDao;
+import com.edutech.javaee.finaltest.bll.TransaccionBll;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
 import com.edutech.javaee.finaltest.model.Transaccion;
 import java.util.List;
@@ -28,22 +28,20 @@ import javax.ws.rs.core.Response;
 public class TransaccionEndpoint {
 
     @Inject
-    TransaccionDao tranDao;
-    
-    
+    TransaccionBll tranBll;
 
     @GET
-    @Path("{id}") //Id de la cuenta
+    @Path("{idCuenta}") //Id de la cuenta
     @Produces({"application/json"})
-    public List<Transaccion> buscarTransacciones(@PathParam("id") Integer id) {
-        return this.tranDao.listaTransacciones(id);
+    public List<Transaccion> buscarTransacciones(@PathParam("idCuenta") Integer idCuenta) {
+        return this.tranBll.listaTransacciones(idCuenta);
     }
 
     @GET
     @Produces({"application/json"})
-    @Path("total/{id}") //Id de la cuenta
-    public Double montoCuenta(@PathParam("id") Integer id) {
-        return this.tranDao.monto(id);
+    @Path("total/{idCuenta}") //Id de la cuenta
+    public Double montoCuenta(@PathParam("idCuenta") Integer idCuenta) {
+        return this.tranBll.totalCuenta(idCuenta);
     }
 
     @POST
@@ -51,17 +49,16 @@ public class TransaccionEndpoint {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response depositar(Transaccion entity) {
-//        entity.setCuenta(this.);
-        this.tranDao.depositar(entity);
+        this.tranBll.depositar(entity);
         return Response.ok(entity).build();
     }
 
     @POST
-    @Path("/retiro")
+    @Path("/debito")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response retiro(Transaccion entity) {
-        this.tranDao.debitar(entity);
+    public Response debito(Transaccion entity) {
+        this.tranBll.debitar(entity);
         return Response.ok(entity).build();
     }
 
@@ -70,14 +67,14 @@ public class TransaccionEndpoint {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response transferir(Transaccion entity) {
-        if (entity.getId_cuenta_trans() == null || entity.getCuenta() == null) {
+        if (entity.getIdCuentaTrans() == null || entity.getCuenta() == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "No hay cuenta para transferir"))
                     .build();
         }
 
-        this.tranDao.transferir(entity);
+        this.tranBll.transferir(entity);
         return Response.ok(entity).build();
     }
 

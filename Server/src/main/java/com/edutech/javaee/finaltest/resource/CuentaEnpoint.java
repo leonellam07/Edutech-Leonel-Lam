@@ -13,6 +13,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -68,13 +69,27 @@ public class CuentaEnpoint {
 
         return Response.ok(cuenta).build();
     }
-    
-    
+
     @PUT
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response editar(Cuenta entity) throws ParseException {
         Cuenta cuenta = this.ctaBll.editarRegistro(entity);
+        if (cuenta == null) {
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
+                    .build();
+        }
+
+        return Response.ok(cuenta).build();
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces({"application/json"})
+    public Response eliminar(@PathParam("id") Integer id) {
+        Cuenta cuenta = this.ctaBll.eliminarRegistro(id);
         if (cuenta == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)

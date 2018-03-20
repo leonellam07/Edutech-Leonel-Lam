@@ -10,18 +10,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import com.edutech.javaee.finaltest.dao.interfaces.CuentaInterface;
 
 /**
  *
  * @author leolp
  */
-public class CuentaDao implements CuentaInterface {
+public class CuentaDao {
 
     @PersistenceContext(unitName = "primary")
     EntityManager em;
 
-    @Override
     public Cuenta buscar(Integer id) {
         try {
             return this.em
@@ -33,20 +31,17 @@ public class CuentaDao implements CuentaInterface {
         }
     }
 
-    @Override
     public List<Cuenta> buscarTodo() {
         return this.em
                 .createQuery("SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta ", Cuenta.class)
                 .getResultList();
     }
 
-    @Override
     public Cuenta guardar(Cuenta entity) {
         this.em.persist(entity);
         return entity;
     }
 
-    @Override
     public Cuenta editar(Cuenta entity) {
         Cuenta cuenta = this.buscar(entity.getId());
         if (cuenta != null) {
@@ -58,7 +53,6 @@ public class CuentaDao implements CuentaInterface {
         return cuenta;
     }
 
-    @Override
     public Cuenta eliminar(Integer id) {
         Cuenta cuenta = this.buscar(id);
         this.em.remove(cuenta);

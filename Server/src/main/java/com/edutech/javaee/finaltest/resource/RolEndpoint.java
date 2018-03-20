@@ -1,8 +1,6 @@
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.RolDao;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
-import com.edutech.javaee.finaltest.bll.DepartamentoBll;
 import com.edutech.javaee.finaltest.bll.RolBll;
 import com.edutech.javaee.finaltest.model.Rol;
 import java.util.List;
