@@ -21,9 +21,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "DEPARTAMENTO")
 @NamedQueries({
-    @NamedQuery(name = "Departamento.findAll", query = "Select DISTINCT d from Departamento d LEFT JOIN FETCH d.municipios")
+    @NamedQuery(name = "Departamento.buscarTodo", query = "Select DISTINCT d from Departamento d LEFT JOIN FETCH d.municipios")
     ,
-    @NamedQuery(name = "Departamento.findById", query = "Select DISTINCT d from Departamento d LEFT JOIN FETCH d.municipios WHERE d.id = :idDepartamento")
+    @NamedQuery(name = "Departamento.buscar", query = "Select DISTINCT d from Departamento d LEFT JOIN FETCH d.municipios WHERE d.id = :idDepartamento")
 })
 public class Departamento implements Serializable {
 

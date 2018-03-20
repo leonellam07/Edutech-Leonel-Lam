@@ -1,4 +1,4 @@
-package com.edutech.javaee.finaltest.dto;
+package com.edutech.javaee.s07.e01.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 

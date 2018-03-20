@@ -31,33 +31,20 @@ public class Usuario implements Serializable {
     private String password;
     private String telefono;
 
-    @JoinColumn(name = "id_rol", referencedColumnName = "id")
     @OneToOne(cascade = CascadeType.ALL)
-    private Rol rol;
-
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
-    @OneToOne(cascade = CascadeType.ALL)
     private Cliente cliente;
-
-    public Usuario(Integer id, String codigo, String nombre, String telefono, String email) {
-        this.id = id;
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
-        this.password = null;
-    }
 
     public Usuario() {
     }
 
-    public Usuario(String codigo, String email, String nombre, String telefono, Rol rol) {
+    public Usuario(String codigo, String email, String nombre, String password, String telefono, Cliente cliente) {
         this.codigo = codigo;
         this.email = email;
         this.nombre = nombre;
-        this.password = null;
+        this.password = password;
         this.telefono = telefono;
-        this.rol = rol;
+        this.cliente = cliente;
     }
 
     public Integer getId() {
@@ -106,14 +93,6 @@ public class Usuario implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
     }
 
 }

@@ -5,7 +5,7 @@
  */
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.TransaccionDaoImp;
+import com.edutech.javaee.finaltest.dao.TransaccionDao;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
 import com.edutech.javaee.finaltest.model.Transaccion;
 import java.util.List;
@@ -28,7 +28,7 @@ import javax.ws.rs.core.Response;
 public class TransaccionEndpoint {
 
     @Inject
-    TransaccionDaoImp tranDao;
+    TransaccionDao tranDao;
     
     
 
@@ -36,14 +36,14 @@ public class TransaccionEndpoint {
     @Path("{id}") //Id de la cuenta
     @Produces({"application/json"})
     public List<Transaccion> buscarTransacciones(@PathParam("id") Integer id) {
-        return this.tranDao.findAll(id);
+        return this.tranDao.listaTransacciones(id);
     }
 
     @GET
     @Produces({"application/json"})
     @Path("total/{id}") //Id de la cuenta
     public Double montoCuenta(@PathParam("id") Integer id) {
-        return this.tranDao.Monto(id);
+        return this.tranDao.monto(id);
     }
 
     @POST
@@ -70,7 +70,7 @@ public class TransaccionEndpoint {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response transferir(Transaccion entity) {
-        if (entity.getId_cuenta_trans() == null) {
+        if (entity.getId_cuenta_trans() == null || entity.getCuenta() == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "No hay cuenta para transferir"))

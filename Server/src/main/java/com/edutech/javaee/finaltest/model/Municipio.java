@@ -29,7 +29,7 @@ public class Municipio implements Serializable {
     private String codigo;
     private String nombre;
 
-    @JoinColumn(name = "ID_DEPARTAMENTO", referencedColumnName = "ID")
+    @JoinColumn(name = "id_departamento", referencedColumnName = "id")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private Departamento departamento;
 

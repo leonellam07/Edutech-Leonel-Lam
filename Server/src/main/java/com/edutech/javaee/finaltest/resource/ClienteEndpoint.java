@@ -5,12 +5,10 @@
  */
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.ClienteDaoImp;
-import com.edutech.javaee.finaltest.dao.MunicipioDaoImp;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
+import com.edutech.javaee.finaltest.bll.ClienteBll;
 import com.edutech.javaee.finaltest.model.Cliente;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -35,48 +33,26 @@ import javax.ws.rs.core.Response;
 public class ClienteEndpoint {
 
     @Inject
-    private ClienteDaoImp cliDao;
-    @Inject
-    private MunicipioDaoImp munDao;
+    private ClienteBll cliBll;
 
     @GET
     @Produces({"application/json"})
-    public List<Cliente> findAll() {
-        List<Cliente> lista = new ArrayList<>();
-//        this.cliDao.findAll().stream().map((cliente) -> {
-//            cliente.getListaCuentas().forEach((cuenta) -> {
-//                cuenta.setListaTransacciones(null);
-//            });
-//            return cliente;
-//        }).forEachOrdered((cliente) -> {
-//            lista.add(cliente);
-//        });
-//        
-//        return lista;
-        this.cliDao.findAll().forEach((cliente) -> {
-            cliente.setListaCuentas(null);
-            lista.add(cliente);
-        });
-
-        return lista;
+    public List<Cliente> lista() {
+        return this.cliBll.obtenerLista();
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findById(@PathParam("id") Integer id) {
-        Cliente cliente = this.cliDao.find(id);
+    public Response buscarId(@PathParam("id") Integer id) {
 
+        Cliente cliente = new ClienteBll().buscarId(id);
         if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
-                    .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
+                    .entity(new ErrorMessageDto(false, 404, "Cliente no encontrado"))
                     .build();
         }
-
-        cliente.getListaCuentas().forEach((cuenta) -> {
-            cuenta.setListaTransacciones(null);
-        });
 
         return Response.ok(cliente, MediaType.APPLICATION_JSON).build();
     }
@@ -84,25 +60,15 @@ public class ClienteEndpoint {
     @POST
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    @Path("/create")
-    public Response create(Cliente entity) throws ParseException {
-        Cliente cliente = new Cliente(
-                entity.getNombre(),
-                entity.getDireccion(),
-                this.munDao.findById(entity.getMuni().getId()),
-                entity.getNit(),
-                entity.getFechaNacimiento()
-        );
-
-        this.cliDao.save(entity);
-        return Response.ok(entity).build();
+    public Response crear(Cliente entity) throws ParseException {
+        return Response.ok(this.cliBll.crearRegistro(entity)).build();
     }
 
     @PUT
     @Produces({"application/json"})
-    public Response update(Cliente entity) throws RollbackException {
-        Cliente cliente = this.cliDao.edit(entity);
+    public Response editar(Cliente entity) throws RollbackException {
 
+        Cliente cliente = this.cliBll.editarRegistro(entity);
         if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
@@ -116,8 +82,8 @@ public class ClienteEndpoint {
     @DELETE
     @Path("{id}")
     @Produces({"application/json"})
-    public Response delete(@PathParam("id") Integer id) {
-        Cliente cliente = this.cliDao.remove(id);
+    public Response eliminar(@PathParam("id") Integer id) {
+        Cliente cliente = this.cliBll.eliminarRegistro(id);
 
         if (cliente == null) {
             return Response

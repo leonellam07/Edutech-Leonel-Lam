@@ -1,10 +1,9 @@
-package com.edutech.javaee.finaltest.resource;
+package com.edutech.javaee.s07.e01.resources;
 
-import com.edutech.javaee.finaltest.dto.ParametroDto;
+import com.edutech.javaee.s07.e01.dto.ParametroDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import javax.ejb.Stateless;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -17,7 +16,6 @@ import javax.ws.rs.core.Response;
  * @author nahum
  */
 @Path("/parametros")
-@Stateless
 public class ParametroEndpoint {
     
     @GET

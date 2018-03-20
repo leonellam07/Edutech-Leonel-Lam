@@ -1,21 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.edutech.javaee.finaltest.dao;
 
 import com.edutech.javaee.finaltest.model.Rol;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import com.edutech.javaee.finaltest.dao.interfaces.RolInterface;
 
 /**
  *
- * @author leolp
+ * @author nahum
  */
-public interface RolDao {
+public class RolDao implements RolInterface {
 
-    public Rol find(Integer id);
+    @PersistenceContext(unitName = "primary")
+    EntityManager em;
 
-    public List<Rol> findAll();
+    @Override
+    public List<Rol> listar() {
+        return this.em
+                .createQuery("SELECT r FROM Rol r ", Rol.class)
+                .getResultList();
+    }
 
+    @Override
+    public Rol buscar(Integer id) {
+        try {
+            return this.em
+                    .createQuery("SELECT r FROM Rol r WHERE r.id = :id", Rol.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
+    @Override
+    public Rol guardar(Rol entitty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Rol editar(Rol entitty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public Rol eliminar(Rol entitty) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

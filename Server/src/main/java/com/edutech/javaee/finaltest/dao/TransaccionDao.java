@@ -5,21 +5,39 @@
  */
 package com.edutech.javaee.finaltest.dao;
 
+import com.edutech.javaee.finaltest.model.Cuenta;
 import com.edutech.javaee.finaltest.model.Transaccion;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import com.edutech.javaee.finaltest.dao.interfaces.TransaccionInterface;
 
 /**
  *
  * @author leolp
  */
-public interface TransaccionDao {
+public class TransaccionDao implements TransaccionInterface {
 
-    public List<Transaccion> findAll(Integer id);
+    @PersistenceContext(unitName = "primary")
+    EntityManager em;
 
-    public Transaccion depositar(Transaccion entity);
+    @Override
+    public List<Transaccion> listaTransacciones(Integer id) {
+        return this.em.createQuery("SELECT u FROM Transaccion u WHERE u.cuenta.id = :id", Transaccion.class)
+                .setParameter("id", id)
+                .getResultList();
+    }
 
-    public Transaccion transferir(Transaccion entity);
+    public Double monto(Integer id) {
+        return this.em.createNamedQuery("Transaccion.findMonto", Double.class)
+                .setParameter("idcuenta", id)
+                .getSingleResult();
+    }
 
-    public Transaccion debitar(Transaccion entity);
+    @Override
+    public Transaccion guardar(Transaccion entity) {
+        this.em.persist(entity);
+        return entity;
+    }
 
 }

@@ -5,14 +5,17 @@
  */
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.CuentaDaoImp;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
+import com.edutech.javaee.finaltest.bll.CuentaBll;
 import com.edutech.javaee.finaltest.model.Cuenta;
-import java.util.ArrayList;
+import java.text.ParseException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -28,32 +31,19 @@ import javax.ws.rs.core.Response;
 public class CuentaEnpoint {
 
     @Inject
-    private CuentaDaoImp dao;
+    private CuentaBll ctaBll;
 
     @GET
     @Produces({"application/json"})
-    public List<Cuenta> findAll() {
-        List<Cuenta> lista = new ArrayList<>();
-        for (Cuenta cuenta : this.dao.findAll()) {
-            Cuenta cuentaNueva = new Cuenta(
-                    cuenta.getMoneda(),
-                    cuenta.getFechaApertura(),
-                    cuenta.isActivo(),
-                    cuenta.getCliente(), 
-                    cuenta.getTipoCuenta()
-            );
-
-            lista.add(cuentaNueva);
-        }
-
-        return lista;
+    public List<Cuenta> lista() {
+        return this.ctaBll.obtenerLista();
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findBy(@PathParam("id") Integer id) {
-        Cuenta cuenta = this.dao.find(id);
+    public Response buscarId(@PathParam("id") Integer id) {
+        Cuenta cuenta = this.ctaBll.buscar(id);
         if (cuenta == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
@@ -62,6 +52,37 @@ public class CuentaEnpoint {
         }
 
         return Response.ok(cuenta, MediaType.APPLICATION_JSON).build();
+    }
+
+    @POST
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+    public Response crear(Cuenta entity) throws ParseException {
+        Cuenta cuenta = this.ctaBll.crearRegistro(entity);
+        if (cuenta == null) {
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
+                    .build();
+        }
+
+        return Response.ok(cuenta).build();
+    }
+    
+    
+    @PUT
+    @Consumes({"application/json"})
+    @Produces({"application/json"})
+    public Response editar(Cuenta entity) throws ParseException {
+        Cuenta cuenta = this.ctaBll.editarRegistro(entity);
+        if (cuenta == null) {
+            return Response
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
+                    .build();
+        }
+
+        return Response.ok(cuenta).build();
     }
 
 }

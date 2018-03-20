@@ -17,8 +17,6 @@ import javax.persistence.Table;
 public class Rol implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rolGen")
-    @SequenceGenerator(name = "rolGen", sequenceName = "rol_seq", initialValue = 10)
     private Integer id;
 
     private String nombre;

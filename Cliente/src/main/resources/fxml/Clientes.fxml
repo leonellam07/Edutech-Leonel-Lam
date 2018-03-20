@@ -40,7 +40,7 @@
             <ComboBox fx:id="cmbMunicipios" prefWidth="150.0" />
          </graphic>
       </Label>
-      <Button layoutX="456.0" layoutY="30.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="112.0" styleClass="nbutton" text="Guardar" />
+      <Button fx:id="btnGuardar" layoutX="456.0" layoutY="30.0" mnemonicParsing="false" onAction="#eventGuardar" prefHeight="31.0" prefWidth="112.0" styleClass="nbutton" text="Guardar" />
       <Label contentDisplay="RIGHT" graphicTextGap="10.0" layoutX="258.0" layoutY="145.0" text="fecha nacimiento:">
          <graphic>
             <DatePicker fx:id="dtpFechaNacimiento" prefHeight="25.0" prefWidth="152.0" />

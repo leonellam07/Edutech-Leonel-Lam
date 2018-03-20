@@ -5,7 +5,6 @@
  */
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.TiposCuentaDao;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
 import com.edutech.javaee.finaltest.model.TiposCuenta;
 import java.util.List;
@@ -17,6 +16,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import com.edutech.javaee.finaltest.bll.TiposCuentaBll;
 
 /**
  *
@@ -27,19 +27,19 @@ import javax.ws.rs.core.Response;
 public class TiposCuentaEndpoint {
 
     @Inject
-    private TiposCuentaDao dao;
+    private TiposCuentaBll tpcBll;
 
     @GET
     @Produces({"application/json"})
-    public List<TiposCuenta> findAll() {
-        return this.dao.findAll();
+    public List<TiposCuenta> listar() {
+        return this.tpcBll.obtenerLista();
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findById(@PathParam("id") Integer id) {
-        TiposCuenta tipocuenta = this.dao.find(id);
+    public Response buscarId(@PathParam("id") Integer id) {
+        TiposCuenta tipocuenta = this.tpcBll.buscarId(id);
         if (tipocuenta == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)

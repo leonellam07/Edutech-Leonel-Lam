@@ -1,27 +1,71 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.edutech.javaee.finaltest.dao;
 
 import com.edutech.javaee.finaltest.model.Departamento;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import com.edutech.javaee.finaltest.dao.interfaces.DepartamentoInterface;
 
 /**
  *
- * @author leolp
+ * @author nahum
  */
-public interface DepartamentoDao {
+public class DepartamentoDao implements DepartamentoInterface {
 
-    public Departamento find(Integer id);
+    @PersistenceContext(unitName = "primary")
+    EntityManager em;
 
-    public List<Departamento> findAll();
+    @Override
+    public Departamento buscar(Integer id) {
+        try {
+            return this.em
+                    .createNamedQuery("Departamento.buscar", Departamento.class)
+                    .setParameter("idDepartamento", id)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
 
-    public Departamento save(Departamento entity);
+    @Override
+    public List<Departamento> listar() {
+        return this.em.createNamedQuery("Departamento.buscarTodo").getResultList();
+    }
 
-    public Departamento edit(Departamento entity);
+    @Override
+    public Departamento guardar(Departamento entity) {
 
-    public Departamento remove(Integer id);
+        this.setChildren(entity);
+        this.em.persist(entity);
+        return entity;
+
+    }
+
+    @Override
+    public Departamento editar(Departamento entity) {
+
+        if (this.buscar(entity.getId()) != null) {
+            this.setChildren(entity);
+            this.em.merge(entity);
+            return entity;
+        }
+
+        return null;
+
+    }
+
+    @Override
+    public Departamento eliminar(Integer id) {
+        Departamento departamento = this.buscar(id);
+        this.em.remove(departamento);
+        return departamento;
+    }
+
+    private void setChildren(Departamento entity) {
+        entity.getMunicipios().stream().forEach((municipio) -> {
+            municipio.setDepartamento(entity);
+        });
+    }
 
 }

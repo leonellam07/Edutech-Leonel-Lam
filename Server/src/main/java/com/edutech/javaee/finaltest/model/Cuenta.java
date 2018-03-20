@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -31,6 +33,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "CUENTA")
+@NamedQueries({
+    @NamedQuery(name = "Cuenta.buscar", query = "SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.id = :id")
+    ,
+    @NamedQuery(name = "Cuenta.buscarTodo", query = "SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta")
+})
 public class Cuenta implements Serializable {
 
     @Id
@@ -51,7 +58,7 @@ public class Cuenta implements Serializable {
     private Cliente cliente;
 
     @OneToOne
-    @JoinColumn(name = "id_tipocuenta", referencedColumnName = "id")
+    @JoinColumn(name = "id_tipoCuenta", referencedColumnName = "id")
     private TiposCuenta tipoCuenta;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cuenta", fetch = FetchType.LAZY)
@@ -60,8 +67,7 @@ public class Cuenta implements Serializable {
     public Cuenta() {
     }
 
-    public Cuenta(Integer id, String moneda, Date fechaApertura, boolean activo, Cliente cliente, TiposCuenta tipoCuenta) {
-        this.id = id;
+    public Cuenta(String moneda, Date fechaApertura, boolean activo, Cliente cliente, TiposCuenta tipoCuenta) {
         this.moneda = moneda;
         this.fechaApertura = fechaApertura;
         this.activo = activo;
@@ -69,7 +75,8 @@ public class Cuenta implements Serializable {
         this.tipoCuenta = tipoCuenta;
     }
 
-    public Cuenta(String moneda, Date fechaApertura, boolean activo, Cliente cliente, TiposCuenta tipoCuenta) {
+    public Cuenta(Integer id, String moneda, Date fechaApertura, boolean activo, Cliente cliente, TiposCuenta tipoCuenta) {
+        this.id = id;
         this.moneda = moneda;
         this.fechaApertura = fechaApertura;
         this.activo = activo;
@@ -133,6 +140,5 @@ public class Cuenta implements Serializable {
     public void setListaTransacciones(List<Transaccion> listaTransacciones) {
         this.listaTransacciones = listaTransacciones;
     }
-
 
 }

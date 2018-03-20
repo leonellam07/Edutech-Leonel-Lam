@@ -1,7 +1,9 @@
 package com.edutech.javaee.finaltest.resource;
 
-import com.edutech.javaee.finaltest.dao.RolDaoImp;
+import com.edutech.javaee.finaltest.dao.RolDao;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
+import com.edutech.javaee.finaltest.bll.DepartamentoBll;
+import com.edutech.javaee.finaltest.bll.RolBll;
 import com.edutech.javaee.finaltest.model.Rol;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -22,19 +24,19 @@ import javax.ws.rs.core.Response;
 public class RolEndpoint {
 
     @Inject
-    RolDaoImp dao;
+    RolBll rolBll;
 
     @GET
     @Produces({"application/json"})
-    public List<Rol> findAll() {
-        return this.dao.findAll();
+    public List<Rol> lista() {
+        return this.rolBll.obtenerLista();
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
-    public Response findById(@PathParam("id") Integer id) {
-        Rol rol = this.dao.find(id);
+    public Response buscarId(@PathParam("id") Integer id) {
+        Rol rol = this.rolBll.buscarId(id);
         if (rol == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)

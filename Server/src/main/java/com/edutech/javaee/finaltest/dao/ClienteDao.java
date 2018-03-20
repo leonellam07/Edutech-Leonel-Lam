@@ -7,21 +7,56 @@ package com.edutech.javaee.finaltest.dao;
 
 import com.edutech.javaee.finaltest.model.Cliente;
 import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.PersistenceContext;
+import com.edutech.javaee.finaltest.dao.interfaces.ClienteInterface;
 
 /**
  *
  * @author leolp
  */
-public interface ClienteDao {
+public class ClienteDao implements ClienteInterface {
 
-    public Cliente find(Integer id);
+    @PersistenceContext(unitName = "primary")
+    EntityManager em;
 
-    public List<Cliente> findAll();
+    @Override
+    public Cliente buscar(Integer id) {
+        try {
+            return this.em
+                    .createNamedQuery("Cliente.buscar", Cliente.class)
+                    .setParameter("idCliente", id)
+                    .getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
 
-    public Cliente save(Cliente entity);
+    @Override
+    public List<Cliente> listar() {
+        return this.em
+                .createNamedQuery("Cliente.buscarTodo", Cliente.class)
+                .getResultList();
+    }
 
-    public Cliente edit(Cliente entity);
+    @Override
+    public Cliente guardar(Cliente entity) {
+        this.em.persist(entity);
+        return entity;
+    }
 
-    public Cliente remove(Integer id);
+    @Override
+    public Cliente editar(Cliente entity) {
+        return this.em.merge(entity);
+
+    }
+
+    @Override
+    public Cliente eliminar(Integer id) {
+        Cliente cliente = this.buscar(id);
+        this.em.remove(cliente);
+        return cliente;
+    }
 
 }

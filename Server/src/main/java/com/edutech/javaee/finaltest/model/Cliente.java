@@ -15,6 +15,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
@@ -28,6 +30,11 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name = "CLIENTE")
+@NamedQueries({
+    @NamedQuery(name = "Cliente.buscar", query = "SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni JOIN FETCH u.listaCuentas WHERE u.id = :idCliente")
+    ,
+    @NamedQuery(name = "Cliente.buscarTodo", query = "SELECT DISTINCT u FROM Cliente u JOIN FETCH u.muni")
+})
 public class Cliente implements Serializable {
 
     @Id
