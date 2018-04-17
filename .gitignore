@@ -25,3 +25,8 @@ hs_err_pid*
 /AppCliente/build/
 /ClienteJPA/nbproject/private/
 /ClienteJPA/target/
+/ATM/nbproject/private/
+/TestATM/nbproject/private/
+/TestATM/build/
+/TestATM/dist/
+/ServerBancario/target/

@@ -9,10 +9,7 @@ import com.edutech.javaee.finaltest.dao.RolDao;
 import com.edutech.javaee.finaltest.model.Rol;
 import java.util.List;
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 
 /**
  *
@@ -27,10 +24,7 @@ public class RolBll {
         return this.dao.listar();
     }
 
-    @GET
-    @Path("{id}")
-    @Produces({"application/json"})
     public Rol buscarId(@PathParam("id") Integer id) {
-       return this.dao.buscar(id);
+        return this.dao.buscar(id);
     }
 }

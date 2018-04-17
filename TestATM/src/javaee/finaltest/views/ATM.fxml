@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="632.0" prefWidth="569.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javaee.finaltest.views.ATMController">
+    <children>
+      <AnchorPane layoutX="4.0" prefHeight="62.0" prefWidth="569.0" style="-fx-background-color: #5F6362;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="75.0" layoutY="13.0" text="Sistema Transacciones" textFill="#d0d0d0">
+               <font>
+                  <Font name="Calibri Bold" size="35.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="64.0" style="-fx-background-color: #3f3f3f;" textFill="#404040">
+               <graphic>
+                  <ImageView fitHeight="40.0" fitWidth="39.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../images/Bank.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Label>
+         </children></AnchorPane>
+      <AnchorPane fx:id="pnlContent" layoutY="62.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f2f2f2;" stylesheets="@../css/Buttons.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="62.0" />
+    </children>
+</AnchorPane>

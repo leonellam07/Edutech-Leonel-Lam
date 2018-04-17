@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.edutech.javaee.finaltest.resource;
+package com.edutech.javaee.finaltest.resource.rest;
 
 import com.edutech.javaee.finaltest.bll.TransaccionBll;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;

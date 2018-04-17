@@ -27,7 +27,6 @@ public class ClienteDao {
                     .setParameter("idCliente", id)
                     .getSingleResult();
         } catch (NoResultException nre) {
-            nre.printStackTrace();
             return null;
         }
     }
@@ -45,7 +44,6 @@ public class ClienteDao {
 
     public Cliente editar(Cliente entity) {
         return this.em.merge(entity);
-
     }
 
     public Cliente eliminar(Integer id) {

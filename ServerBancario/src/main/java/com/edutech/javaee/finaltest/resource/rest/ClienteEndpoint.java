@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.edutech.javaee.finaltest.resource;
+package com.edutech.javaee.finaltest.resource.rest;
 
+import com.edutech.javaee.finaltest.bll.ClienteBll;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
-import com.edutech.javaee.finaltest.bll.CuentaBll;
-import com.edutech.javaee.finaltest.model.Cuenta;
+import com.edutech.javaee.finaltest.model.Cliente;
 import java.text.ParseException;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.RollbackException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -28,76 +29,69 @@ import javax.ws.rs.core.Response;
  * @author leolp
  */
 @Stateless
-@Path("/cuentas")
-public class CuentaEnpoint {
+@Path("/clientes")
+public class ClienteEndpoint {
 
     @Inject
-    private CuentaBll ctaBll;
+    private ClienteBll cliBll;
 
     @GET
     @Produces({"application/json"})
-    public List<Cuenta> lista() {
-        return this.ctaBll.obtenerLista();
+    public List<Cliente> lista() {
+        return this.cliBll.obtenerLista();
     }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
     public Response buscarId(@PathParam("id") Integer id) {
-        Cuenta cuenta = this.ctaBll.buscar(id);
-        if (cuenta == null) {
+
+        Cliente cliente = this.cliBll.buscarId(id);
+        if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
-                    .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
+                    .entity(new ErrorMessageDto(false, 404, "Cliente no encontrado"))
                     .build();
         }
 
-        return Response.ok(cuenta, MediaType.APPLICATION_JSON).build();
+        return Response.ok(cliente, MediaType.APPLICATION_JSON).build();
     }
 
     @POST
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response crear(Cuenta entity) throws ParseException {
-        Cuenta cuenta = this.ctaBll.crearRegistro(entity);
-        if (cuenta == null) {
-            return Response
-                    .status(Response.Status.NOT_FOUND)
-                    .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
-                    .build();
-        }
-
-        return Response.ok(cuenta).build();
+    public Response crear(Cliente entity) throws ParseException {
+        return Response.ok(this.cliBll.guardar(entity)).build();
     }
 
     @PUT
-    @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response editar(Cuenta entity) throws ParseException {
-        Cuenta cuenta = this.ctaBll.editarRegistro(entity);
-        if (cuenta == null) {
+    public Response editar(Cliente entity) throws RollbackException {
+
+        Cliente cliente = this.cliBll.editar(entity);
+        if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
                     .build();
         }
 
-        return Response.ok(cuenta).build();
+        return Response.ok(cliente).build();
     }
 
     @DELETE
     @Path("{id}")
     @Produces({"application/json"})
     public Response eliminar(@PathParam("id") Integer id) {
-        Cuenta cuenta = this.ctaBll.eliminarRegistro(id);
-        if (cuenta == null) {
+        Cliente cliente = this.cliBll.eliminarRegistro(id);
+
+        if (cliente == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
                     .build();
         }
 
-        return Response.ok(cuenta).build();
+        return Response.ok(cliente).build();
     }
-
 }

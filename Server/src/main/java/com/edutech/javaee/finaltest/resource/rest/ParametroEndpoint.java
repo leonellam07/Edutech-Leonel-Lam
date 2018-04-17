@@ -1,4 +1,4 @@
-package com.edutech.javaee.s07.e01.resources;
+package com.edutech.javaee.finaltest.resource.rest;
 
 import com.edutech.javaee.s07.e01.dto.ParametroDto;
 import java.util.ArrayList;

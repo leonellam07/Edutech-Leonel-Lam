@@ -20,10 +20,10 @@ public class CuentaDao {
     @PersistenceContext(unitName = "primary")
     EntityManager em;
 
-    public Cuenta buscar(Integer id) {
+    public Cuenta buscarId(Integer id) {
         try {
             return this.em
-                    .createQuery("SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.id = :id", Cuenta.class)
+                    .createQuery("SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta WHERE u.id = :id", Cuenta.class)
                     .setParameter("id", id)
                     .getSingleResult();
         } catch (NoResultException nre) {
@@ -43,7 +43,7 @@ public class CuentaDao {
     }
 
     public Cuenta editar(Cuenta entity) {
-        Cuenta cuenta = this.buscar(entity.getId());
+        Cuenta cuenta = this.buscarId(entity.getId());
         if (cuenta != null) {
             cuenta.setCliente(entity.getCliente());
             cuenta.setFechaApertura(entity.getFechaApertura());
@@ -54,7 +54,7 @@ public class CuentaDao {
     }
 
     public Cuenta eliminar(Integer id) {
-        Cuenta cuenta = this.buscar(id);
+        Cuenta cuenta = this.buscarId(id);
         this.em.remove(cuenta);
         return cuenta;
     }

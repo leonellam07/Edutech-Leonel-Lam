@@ -36,8 +36,10 @@ public class CuentaBll {
         return lista;
     }
 
-    public Cuenta buscar(Integer id) {
-        return this.ctaDao.buscar(id);
+    public Cuenta buscarId(Integer idCuenta) {
+        Cuenta cuenta= this.ctaDao.buscarId(idCuenta);
+        cuenta.setListaTransacciones(null);
+        return cuenta;
     }
 
     public Cuenta crearRegistro(Cuenta entity) {
@@ -45,7 +47,7 @@ public class CuentaBll {
     }
 
     public Cuenta editarRegistro(Cuenta entity) {
-        Cuenta cuenta = this.buscar(entity.getId());
+        Cuenta cuenta = this.buscarId(entity.getId());
 
         if (cuenta != null) {
             cuenta.setActivo(entity.isActivo());

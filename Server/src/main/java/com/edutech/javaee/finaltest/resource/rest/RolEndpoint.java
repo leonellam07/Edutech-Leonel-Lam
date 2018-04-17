@@ -1,8 +1,8 @@
-package com.edutech.javaee.finaltest.resource;
+package com.edutech.javaee.finaltest.resource.rest;
 
-import com.edutech.javaee.finaltest.model.Departamento;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
-import com.edutech.javaee.finaltest.bll.DepartamentoBll;
+import com.edutech.javaee.finaltest.bll.RolBll;
+import com.edutech.javaee.finaltest.model.Rol;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -17,31 +18,31 @@ import javax.ws.rs.core.Response;
  * @author nahum
  */
 @Stateless
-@Path("/departamentos")
-public class DepartamentoEndpoint {
+@Path("/roles")
+public class RolEndpoint {
 
     @Inject
-    private DepartamentoBll deptoBll;
+    RolBll rolBll;
+
+    @GET
+    @Produces({"application/json"})
+    public List<Rol> lista() {
+        return this.rolBll.obtenerLista();
+    }
 
     @GET
     @Path("{id}")
     @Produces({"application/json"})
     public Response buscarId(@PathParam("id") Integer id) {
-        Departamento departamento = this.deptoBll.buscarId(id);
-        if (departamento == null) {
+        Rol rol = this.rolBll.buscarId(id);
+        if (rol == null) {
             return Response
                     .status(Response.Status.NOT_FOUND)
                     .entity(new ErrorMessageDto(false, 404, "Recurso no encontrado"))
                     .build();
         }
 
-        return Response.ok(departamento).build();
-    }
-
-    @GET
-    @Produces({"application/json"})
-    public List<Departamento> lista() {
-        return this.deptoBll.obtenerLista();
+        return Response.ok(rol, MediaType.APPLICATION_JSON).build();
     }
 
 }
