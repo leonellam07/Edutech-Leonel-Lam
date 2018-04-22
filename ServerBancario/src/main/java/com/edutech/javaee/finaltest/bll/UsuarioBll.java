@@ -19,7 +19,7 @@ public class UsuarioBll {
     @Inject
     private UsuarioDao userDao;
 
-    public List<Usuario> Obtenerlistar() {
+    public List<Usuario> listar() {
         return this.userDao.listar(Usuario.class);
     }
 

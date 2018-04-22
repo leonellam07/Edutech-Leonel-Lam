@@ -26,5 +26,6 @@ public class TiposCuentaBll {
     public TiposCuenta buscarId(Integer idCuenta) {
         return this.tpcDao.buscarId(idCuenta);
     }
+    
 
 }

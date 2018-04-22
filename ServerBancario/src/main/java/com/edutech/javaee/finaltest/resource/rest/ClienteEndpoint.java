@@ -38,7 +38,7 @@ public class ClienteEndpoint {
     @GET
     @Produces({"application/json"})
     public List<Cliente> lista() {
-        return this.cliBll.obtenerLista();
+        return this.cliBll.listar();
     }
 
     @GET

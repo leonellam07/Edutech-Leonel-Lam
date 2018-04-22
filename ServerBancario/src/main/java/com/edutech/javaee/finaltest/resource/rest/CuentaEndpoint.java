@@ -37,7 +37,7 @@ public class CuentaEndpoint {
     @GET
     @Produces({"application/json"})
     public List<Cuenta> lista() {
-        return ctaBll.lista();
+        return ctaBll.listar();
     }
 
     @GET

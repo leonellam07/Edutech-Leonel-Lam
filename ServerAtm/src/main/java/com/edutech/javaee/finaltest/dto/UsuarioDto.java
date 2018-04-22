@@ -1,45 +1,25 @@
-package com.edutech.javaee.finaltest.model;
+package com.edutech.javaee.finaltest.dto;
 
 import java.io.Serializable;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author nahum
  */
-@Entity
-@Table(name = "USUARIO")
-public class Usuario implements Serializable {
+public class UsuarioDto implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuarioGen")
-    @SequenceGenerator(name = "usuarioGen", sequenceName = "usuario_seq", initialValue = 10)
     private Integer id;
-
     private String codigo;
     private String email;
-
     private String nombre;
     private String password;
     private String telefono;
+    private ClienteDto cliente;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_cliente", referencedColumnName = "id")
-    private Cliente cliente;
-
-    public Usuario() {
+    public UsuarioDto() {
     }
 
-    public Usuario(String codigo, String email, String nombre, String password, String telefono, Cliente cliente) {
+    public UsuarioDto(String codigo, String email, String nombre, String password, String telefono, ClienteDto cliente) {
         this.codigo = codigo;
         this.email = email;
         this.nombre = nombre;
@@ -48,7 +28,7 @@ public class Usuario implements Serializable {
         this.cliente = cliente;
     }
 
-    public Usuario(Integer id, String codigo, String email, String nombre, String password, String telefono, Cliente cliente) {
+    public UsuarioDto(Integer id, String codigo, String email, String nombre, String password, String telefono, ClienteDto cliente) {
         this.id = id;
         this.codigo = codigo;
         this.email = email;
@@ -106,12 +86,11 @@ public class Usuario implements Serializable {
         this.password = password;
     }
 
-    @XmlTransient
-    public Cliente getCliente() {
+    public ClienteDto getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(ClienteDto cliente) {
         this.cliente = cliente;
     }
 

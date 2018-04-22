@@ -37,7 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Cuenta.buscar", query = "SELECT DISTINCT u FROM Cuenta u LEFT JOIN FETCH u.cliente LEFT JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.id = :id")
     ,
-    @NamedQuery(name = "Cuenta.buscarTodo", query = "SELECT DISTINCT u FROM Cuenta u JOIN FETCH u.cliente JOIN FETCH u.tipoCuenta")
+    @NamedQuery(name = "Cuenta.buscarTodo", query = "SELECT DISTINCT u FROM Cuenta u LEFT JOIN FETCH u.cliente LEFT JOIN FETCH u.tipoCuenta")
+    ,
+    @NamedQuery(name = "Cuenta.buscarTarjeta", query = "SELECT DISTINCT u FROM Cuenta u LEFT JOIN FETCH u.cliente LEFT JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.cliente.tarjetaDebito = :idTarjeta")
 })
 public class Cuenta implements Serializable {
 
@@ -54,11 +56,11 @@ public class Cuenta implements Serializable {
 
     private boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente cliente;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_tipoCuenta", referencedColumnName = "id")
     private TiposCuenta tipoCuenta;
 
@@ -128,7 +130,6 @@ public class Cuenta implements Serializable {
         this.tipoCuenta = tipoCuenta;
     }
 
- 
     public List<Transaccion> getListaTransacciones() {
         return listaTransacciones;
     }

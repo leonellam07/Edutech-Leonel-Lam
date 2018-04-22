@@ -23,10 +23,10 @@ public class ClienteBll {
     @Inject
     private MunicipioDao munDao;
 
-    public List<Cliente> obtenerLista() {
+    public List<Cliente> listar() {
 
         List<Cliente> lista = new ArrayList<>();
-        this.cliDao.listar(Cliente.class).forEach((cliente) -> {
+        this.cliDao.listar().forEach((cliente) -> {
             cliente.setListaCuentas(null);
             lista.add(cliente);
         });
@@ -50,9 +50,10 @@ public class ClienteBll {
         Cliente cliente = new Cliente(
                 entity.getNombre(),
                 entity.getDireccion(),
-                this.munDao.buscar(entity.getMuni().getId()),
                 entity.getNit(),
-                entity.getFechaNacimiento()
+                this.munDao.buscar(entity.getMuni().getId()),
+                entity.getFechaNacimiento(),
+                entity.getTarjetaDebito()
         );
 
         return this.cliDao.guardar(entity);

@@ -7,7 +7,6 @@ package com.edutech.javaee.finaltest.model;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -57,7 +56,7 @@ public class Transaccion implements Serializable {
     private String detalle;
 
     @Transient
-    private Integer idCuentaTrans;
+    private Integer idCuentaxTransferir;
 
     public Transaccion() {
     }
@@ -69,7 +68,7 @@ public class Transaccion implements Serializable {
         this.monto = monto;
         this.tipoTransaccion = tipoTransaccion;
         this.detalle = detalle;
-        this.idCuentaTrans = idCuentaTrans;
+        this.idCuentaxTransferir = idCuentaTrans;
     }
 
     public Transaccion(Cuenta cuenta, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaTrans) {
@@ -78,7 +77,7 @@ public class Transaccion implements Serializable {
         this.monto = monto;
         this.tipoTransaccion = tipoTransaccion;
         this.detalle = detalle;
-        this.idCuentaTrans = idCuentaTrans;
+        this.idCuentaxTransferir = idCuentaTrans;
     }
 
     public Integer getId() {
@@ -131,11 +130,11 @@ public class Transaccion implements Serializable {
     }
 
     public Integer getIdCuentaTrans() {
-        return idCuentaTrans;
+        return idCuentaxTransferir;
     }
 
     public void setIdCuentaTrans(Integer idCuentaTrans) {
-        this.idCuentaTrans = idCuentaTrans;
+        this.idCuentaxTransferir = idCuentaTrans;
     }
 
 }

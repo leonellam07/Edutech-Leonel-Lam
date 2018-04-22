@@ -26,10 +26,10 @@ public class CuentaBll {
     @Inject
     private TransaccionDao tranDao;
 
-    public List<Cuenta> lista() {
+    public List<Cuenta> listar() {
 
         List<Cuenta> lista = new ArrayList<>();
-        this.ctaDao.listar(Cuenta.class).stream().map((cuenta) -> {
+        this.ctaDao.listar().stream().map((cuenta) -> {
             cuenta.setListaTransacciones(null);
             return cuenta;
         }).forEachOrdered((cuenta) -> {
@@ -37,6 +37,10 @@ public class CuentaBll {
         });
 
         return lista;
+    }
+
+    public List<Cuenta> listarTarjeta(Integer idTarjeta) {
+        return this.ctaDao.listaTarjeta(idTarjeta);
     }
 
     public Cuenta buscarId(Integer idCuenta) {

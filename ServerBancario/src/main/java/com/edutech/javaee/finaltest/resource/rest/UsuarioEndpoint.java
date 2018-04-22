@@ -37,7 +37,7 @@ public class UsuarioEndpoint {
     @GET
     @Produces({"application/json"})
     public List<Usuario> listar() {
-        List<Usuario> usuarios = this.userBll.Obtenerlistar();
+        List<Usuario> usuarios = this.userBll.listar();
         return usuarios;
     }
 

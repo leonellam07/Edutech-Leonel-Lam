@@ -49,7 +49,7 @@ public class Transaccion implements Serializable {
 
     private float monto;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_tipoTransaccion", referencedColumnName = "id")
     private TipoTransaccion tipoTransaccion;
 

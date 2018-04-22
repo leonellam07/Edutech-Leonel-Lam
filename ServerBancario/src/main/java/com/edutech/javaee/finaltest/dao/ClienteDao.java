@@ -6,6 +6,7 @@
 package com.edutech.javaee.finaltest.dao;
 
 import com.edutech.javaee.finaltest.model.Cliente;
+import java.util.List;
 
 /**
  *
@@ -13,8 +14,15 @@ import com.edutech.javaee.finaltest.model.Cliente;
  */
 public class ClienteDao extends GenericDao<Cliente> {
 
+    public List<Cliente> listar() {
+        return this.em.createNamedQuery("Cliente.buscarTodo", Cliente.class)
+                .getResultList();
+    }
+
     public Cliente buscarId(Integer idCliente) {
-        return this.em.find(Cliente.class, idCliente);
+        return this.em.createNamedQuery("Cliente.buscar",Cliente.class)
+                .setParameter("idCliente", idCliente)
+                .getSingleResult();
     }
 
 }
