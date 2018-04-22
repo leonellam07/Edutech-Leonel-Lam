@@ -34,9 +34,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "CLIENTE")
 @NamedQueries({
-    @NamedQuery(name = "Cliente.buscar", query = "SELECT DISTINCT u FROM Cliente u LEFT JOIN FETCH u.muni  WHERE u.id = :idCliente")
+    @NamedQuery(name = "Cliente.buscar", query = "SELECT DISTINCT u FROM Cliente u LEFT JOIN FETCH u.muni LEFT JOIN FETCH u.tarjetaDebito LEFT JOIN FETCH u.listaCuentas c  LEFT JOIN FETCH  c.tipoCuenta WHERE u.id = :idCliente")
     ,
-    @NamedQuery(name = "Cliente.buscarTodo", query = "SELECT DISTINCT u FROM Cliente u LEFT JOIN FETCH u.muni  ")
+    @NamedQuery(name = "Cliente.buscarTodo", query = "SELECT DISTINCT u FROM Cliente u LEFT JOIN FETCH u.muni LEFT JOIN FETCH u.tarjetaDebito ")
 })
 public class Cliente implements Serializable {
 
@@ -49,7 +49,7 @@ public class Cliente implements Serializable {
     private String direccion;
     private String nit;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
+    @OneToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "id_muni", referencedColumnName = "ID")
     private Municipio muni;
 

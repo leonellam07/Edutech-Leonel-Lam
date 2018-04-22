@@ -8,6 +8,7 @@ package com.edutech.javaee.finaltest.bll;
 import com.edutech.javaee.finaltest.dao.TarjetaDebitoDao;
 import com.edutech.javaee.finaltest.model.TarjetaDebito;
 import javax.inject.Inject;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -19,11 +20,14 @@ public class TarjetaDebitoBll {
     private TarjetaDebitoDao tarDao;
 
     public String validar(String numero, String pin) {
-        TarjetaDebito tarjeta = this.tarDao.validar(numero, pin);
-        if (tarjeta != null) {
-            return tarjeta.getId().toString();
+  
+        try {
+           TarjetaDebito tarjeta =  this.tarDao.validar(numero, pin);
+           if(tarjeta != null){
+               return tarjeta.getId().toString();
+           }
+        } catch (NoResultException nre) {
         }
-
         return null;
     }
 

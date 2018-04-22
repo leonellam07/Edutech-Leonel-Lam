@@ -19,9 +19,9 @@ public class CuentaDao extends GenericDao<Cuenta> {
                 .getResultList();
     }
 
-    public List<Cuenta> listaTarjeta(Integer idTarjeta) {
+    public List<Cuenta> listaTarjeta(String numero) {
         return this.em.createNamedQuery("Cuenta.buscarTarjeta", Cuenta.class)
-                .setParameter("idTarjeta", idTarjeta)
+                .setParameter("numero", numero)
                 .getResultList();
     }
 

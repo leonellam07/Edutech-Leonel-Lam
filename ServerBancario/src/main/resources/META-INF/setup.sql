@@ -18,12 +18,12 @@
     insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (5, 'JOC', 'Jocotan', 2);
     insert into MUNICIPIO (id,codigo,nombre,ID_DEPARTAMENTO) values (6, 'ESQ', 'Esquipulas', 2);
 
-    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (1, 'Nahum Alarcon','Ciudad',1,'1234124', '1981-07-23' );
-    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (2, 'Yoli Esteban','Zona 4',3, '3423423','1987-05-25');
-    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (3, 'Jorge Leonel Lam Pazos','Zona 6',2,'534563', '1994-01-07');
-    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (4, 'Manuel Mutzus','Centro Zona 1', 4,'3456456','1987-01-02' );
-    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (5, 'Alejandro Rigalt','Zona 2',5,'57456567','1978-02-08');
-    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento) values (6, 'Bern Torres','Zona 3',6,'4567567','1980-01-01');
+    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento,id_tarjetaDebito) values (1, 'Nahum Alarcon','Ciudad',1,'1234124', '1981-07-23',1);
+    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento,id_tarjetaDebito) values (2, 'Yoli Esteban','Zona 4',3, '3423423','1987-05-25',2);
+    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento,id_tarjetaDebito) values (3, 'Jorge Leonel Lam Pazos','Zona 6',2,'534563', '1994-01-07',3);
+    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento,id_tarjetaDebito) values (4, 'Manuel Mutzus','Centro Zona 1', 4,'3456456','1987-01-02',4);
+    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento,id_tarjetaDebito) values (5, 'Alejandro Rigalt','Zona 2',5,'57456567','1978-02-08',5);
+    insert into cliente (id,nombre,direccion,ID_MUNI,nit,fecha_nacimiento,id_tarjetaDebito) values (6, 'Bern Torres','Zona 3',6,'4567567','1980-01-01',6);
 
 
     insert into usuario (id,codigo,email,nombre,password,telefono,ID_CLIENTE) values (1, 'admin', 'admin@admon.com',  'Administrador del Sistema',  null, '1234124',1);
@@ -64,5 +64,12 @@
     INSERT INTO transaccion(id,fecha,monto,id_tipoTransaccion,ID_CUENTA) values (10,'2018-01-13',-300,2,4);
     INSERT INTO transaccion(id,fecha,monto,id_tipoTransaccion,ID_CUENTA) values (11,'2018-01-09',-400,2,5);
     INSERT INTO transaccion(id,fecha,monto,id_tipoTransaccion,ID_CUENTA) values (12,'2018-01-10',-150,2,6);
+
+    INSERT INTO tarjeta_debito(id,descripcion,fechaExpiracion,limitexDia,numero,pin) values (1,null,'2025-01-01',5000,'123456','1234');
+    INSERT INTO tarjeta_debito(id,descripcion,fechaExpiracion,limitexDia,numero,pin) values (2,null,'2025-01-01',8000,'136790','4567');
+    INSERT INTO tarjeta_debito(id,descripcion,fechaExpiracion,limitexDia,numero,pin) values (3,null,'2025-01-01',6000,'245678','9012');
+    INSERT INTO tarjeta_debito(id,descripcion,fechaExpiracion,limitexDia,numero,pin) values (4,null,'2025-01-01',7000,'678991','4567');
+    INSERT INTO tarjeta_debito(id,descripcion,fechaExpiracion,limitexDia,numero,pin) values (5,null,'2025-01-01',6000,'467891','2341');
+    INSERT INTO tarjeta_debito(id,descripcion,fechaExpiracion,limitexDia,numero,pin) values (6,null,'2025-01-01',7000,'982341','4353');
 
     Commit;

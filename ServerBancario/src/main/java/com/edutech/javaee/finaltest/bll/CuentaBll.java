@@ -10,6 +10,7 @@ import com.edutech.javaee.finaltest.dao.CuentaDao;
 import com.edutech.javaee.finaltest.dao.TransaccionDao;
 import com.edutech.javaee.finaltest.model.Cuenta;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -39,8 +40,15 @@ public class CuentaBll {
         return lista;
     }
 
-    public List<Cuenta> listarTarjeta(Integer idTarjeta) {
-        return this.ctaDao.listaTarjeta(idTarjeta);
+    public List<Cuenta> listarTarjeta(String numero) {
+        List<Cuenta> lista = new LinkedList<>();
+        this.ctaDao.listaTarjeta(numero).stream().map((cuenta) -> {
+            cuenta.setTotalCuenta(this.tranDao.total(cuenta.getId()));
+            return cuenta;
+        }).forEachOrdered((cuenta) -> {
+            lista.add(cuenta);
+        });
+        return lista;
     }
 
     public Cuenta buscarId(Integer idCuenta) {
