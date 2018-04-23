@@ -56,11 +56,11 @@ public class Cuenta implements Serializable {
 
     private boolean activo;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente cliente;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_tipoCuenta", referencedColumnName = "id")
     private TiposCuenta tipoCuenta;
 
@@ -71,6 +71,15 @@ public class Cuenta implements Serializable {
     private Double totalCuenta;
 
     public Cuenta() {
+    }
+
+    public Cuenta(Integer id, String moneda, Date fechaApertura, boolean activo, Cliente cliente, TiposCuenta tipoCuenta) {
+        this.id = id;
+        this.moneda = moneda;
+        this.fechaApertura = fechaApertura;
+        this.activo = activo;
+        this.cliente = cliente;
+        this.tipoCuenta = tipoCuenta;
     }
 
     public Cuenta(String moneda, Date fechaApertura, boolean activo, Cliente cliente, TiposCuenta tipoCuenta) {

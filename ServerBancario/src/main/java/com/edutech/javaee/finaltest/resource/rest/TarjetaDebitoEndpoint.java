@@ -9,6 +9,7 @@ import com.edutech.javaee.finaltest.bll.CuentaBll;
 import com.edutech.javaee.finaltest.bll.TarjetaDebitoBll;
 import com.edutech.javaee.finaltest.bll.TransaccionBll;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
+import com.edutech.javaee.finaltest.dto.TransaccionDto;
 import com.edutech.javaee.finaltest.model.Cuenta;
 import com.edutech.javaee.finaltest.model.Transaccion;
 import java.util.List;
@@ -73,8 +74,15 @@ public class TarjetaDebitoEndpoint {
     @Path("/deposito")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response depositar(Transaccion entity) {
-        Transaccion respuesta = this.tranBll.depositar(entity);
+    public Response depositar(TransaccionDto entity) {
+
+        Transaccion respuesta = this.tranBll.depositar(new Transaccion(
+                this.ctaBll.buscarId(entity.getCuenta().getId()),
+                entity.getMonto(),
+                null,
+                entity.getDetalle(),
+                null
+        ));
         if (respuesta != null) {
             return Response.ok(entity).build();
         }
@@ -89,8 +97,14 @@ public class TarjetaDebitoEndpoint {
     @Path("/debito")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response debito(Transaccion entity) {
-        Transaccion respuesta = this.tranBll.debitar(entity);
+    public Response debito(TransaccionDto entity) {
+        Transaccion respuesta = this.tranBll.debitar(new Transaccion(
+                this.ctaBll.buscarId(entity.getCuenta().getId()),
+                entity.getMonto(),
+                null,
+                entity.getDetalle(),
+                null
+        ));
         if (respuesta != null) {
             return Response.ok(entity).build();
         }
@@ -105,24 +119,22 @@ public class TarjetaDebitoEndpoint {
     @Path("/transferir")
     @Consumes({"application/json"})
     @Produces({"application/json"})
-    public Response transferir(Transaccion entity) {
-        if (entity.getIdCuentaTrans() == null || entity.getCuenta() == null) {
+    public Response transferir(TransaccionDto entity) {
+
+        if (entity.getIdCuentaxTransferir() == null || entity.getCuenta() == null) {
             return Response
-                    .status(Response.Status.NOT_ACCEPTABLE)
-                    .type(MediaType.TEXT_HTML)
-                    .entity("No hay cuenta para transferir")
+                    .status(Response.Status.NOT_FOUND)
+                    .entity(new ErrorMessageDto(false, 404, "No hay cuenta para transferir"))
                     .build();
         }
 
-        Transaccion respuesta = this.tranBll.debitar(entity);
-        if (respuesta != null) {
-            return Response.ok(entity).build();
-        }
-
-        return Response
-                .status(Response.Status.NOT_ACCEPTABLE)
-                .type(MediaType.TEXT_HTML)
-                .entity("Imposible realizar operacion")
-                .build();
+        Transaccion respuesta = this.tranBll.transferir(new Transaccion(
+                this.ctaBll.buscarId(entity.getCuenta().getId()),
+                entity.getMonto(),
+                null,
+                entity.getDetalle(),
+                entity.getIdCuentaxTransferir()
+        ));
+        return Response.ok(respuesta).build();
     }
 }

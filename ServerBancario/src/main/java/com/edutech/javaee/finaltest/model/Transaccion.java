@@ -7,6 +7,7 @@ package com.edutech.javaee.finaltest.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,7 +23,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -37,10 +37,10 @@ public class Transaccion implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transactGen")
-    @SequenceGenerator(name = "transactGen", sequenceName = "transact_seq", initialValue = 10)
+    @SequenceGenerator(name = "transactGen", sequenceName = "transact_seq", allocationSize = 1)
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "id_cuenta", referencedColumnName = "id")
     private Cuenta cuenta;
 
@@ -61,23 +61,23 @@ public class Transaccion implements Serializable {
     public Transaccion() {
     }
 
-    public Transaccion(Integer id, Cuenta cuenta, Date fecha, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaTrans) {
+    public Transaccion(Integer id, Cuenta cuenta, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaxTransferir) {
         this.id = id;
-        this.cuenta = cuenta;
-        this.fecha = fecha;
-        this.monto = monto;
-        this.tipoTransaccion = tipoTransaccion;
-        this.detalle = detalle;
-        this.idCuentaxTransferir = idCuentaTrans;
-    }
-
-    public Transaccion(Cuenta cuenta, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaTrans) {
         this.cuenta = cuenta;
         this.fecha = new Date();
         this.monto = monto;
         this.tipoTransaccion = tipoTransaccion;
         this.detalle = detalle;
-        this.idCuentaxTransferir = idCuentaTrans;
+        this.idCuentaxTransferir = idCuentaxTransferir;
+    }
+
+    public Transaccion(Cuenta cuenta, float monto, TipoTransaccion tipoTransaccion, String detalle, Integer idCuentaxTransferir) {
+        this.cuenta = cuenta;
+        this.fecha = new Date();
+        this.monto = monto;
+        this.tipoTransaccion = tipoTransaccion;
+        this.detalle = detalle;
+        this.idCuentaxTransferir = idCuentaxTransferir;
     }
 
     public Integer getId() {
@@ -88,7 +88,6 @@ public class Transaccion implements Serializable {
         this.id = id;
     }
 
-    @XmlTransient
     public Cuenta getCuenta() {
         return cuenta;
     }
@@ -129,12 +128,12 @@ public class Transaccion implements Serializable {
         this.detalle = detalle;
     }
 
-    public Integer getIdCuentaTrans() {
+    public Integer getIdCuentaxTransferir() {
         return idCuentaxTransferir;
     }
 
-    public void setIdCuentaTrans(Integer idCuentaTrans) {
-        this.idCuentaxTransferir = idCuentaTrans;
+    public void setIdCuentaxTransferir(Integer idCuentaxTransferir) {
+        this.idCuentaxTransferir = idCuentaxTransferir;
     }
 
 }

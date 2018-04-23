@@ -90,7 +90,7 @@ public class tarjeta {
         Client client = ClientBuilder.newClient();
 
         Response response = client
-                .target("http://localhost:8081/bancared/api/tarjeta/debitar")
+                .target("http://localhost:8081/bancared/api/tarjeta/debito")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(transaccion, MediaType.APPLICATION_JSON));
 
@@ -108,7 +108,7 @@ public class tarjeta {
         Client client = ClientBuilder.newClient();
 
         Response response = client
-                .target("http://localhost:8081/bancared/api/tarjeta/depositar")
+                .target("http://localhost:8081/bancared/api/tarjeta/deposito")
                 .request(MediaType.APPLICATION_JSON)
                 .post(Entity.entity(transaccion, MediaType.APPLICATION_JSON));
 
