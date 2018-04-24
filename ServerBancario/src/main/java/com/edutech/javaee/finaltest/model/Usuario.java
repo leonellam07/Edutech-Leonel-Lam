@@ -26,7 +26,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Usuario.login", query = "SELECT u FROM Usuario u LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas WHERE u.codigo = :codigo AND u.password = :password")
     ,
-        @NamedQuery(name = "Usuario.buscarCodigo", query = "SELECT u FROM Usuario u LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas WHERE u.codigo = :codigo")
+    @NamedQuery(name = "Usuario.buscarCodigo", query = "SELECT u FROM Usuario u  LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas WHERE u.codigo = :codigo")
+    ,
+    @NamedQuery(name = "Usuario.buscarId", query = "SELECT u FROM Usuario u  LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas WHERE u.id = :id")
+    ,
+    @NamedQuery(name = "Usuario.buscarTodos", query = "SELECT u FROM Usuario u  LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas")
+
 })
 public class Usuario implements Serializable {
 

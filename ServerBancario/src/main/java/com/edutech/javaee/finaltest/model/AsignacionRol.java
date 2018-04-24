@@ -19,6 +19,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -29,9 +30,9 @@ import javax.persistence.Temporal;
 @IdClass(AsignacionRolPK.class)
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NamedQueries({
-    @NamedQuery(name = "AsignacionRol.buscar", query = "SELECT DISTINCT u FROM AsignacionRol u LEFT JOIN FETCH u.usuario LEFT JOIN FETCH u.rol  WHERE u.usuario.id = :idUsuario")
+    @NamedQuery(name = "AsignacionRol.buscar", query = "SELECT  a FROM AsignacionRol a LEFT JOIN FETCH a.usuario LEFT JOIN FETCH a.rol  WHERE a.usuario.id = :idUsuario")
     ,
-    @NamedQuery(name = "AsignacionRol.buscarTodo", query = "SELECT DISTINCT u FROM AsignacionRol u LEFT JOIN FETCH u.usuario LEFT JOIN FETCH u.rol ")
+    @NamedQuery(name = "AsignacionRol.buscarTodo", query = "SELECT a FROM AsignacionRol a LEFT JOIN FETCH a.usuario LEFT JOIN FETCH a.rol  ")
 })
 public class AsignacionRol implements Serializable {
 
@@ -60,6 +61,7 @@ public class AsignacionRol implements Serializable {
         this.descripcion = descripcion;
     }
 
+    @XmlTransient
     public Usuario getUsuario() {
         return usuario;
     }
@@ -68,6 +70,7 @@ public class AsignacionRol implements Serializable {
         this.usuario = usuario;
     }
 
+    @XmlTransient
     public Rol getRol() {
         return rol;
     }

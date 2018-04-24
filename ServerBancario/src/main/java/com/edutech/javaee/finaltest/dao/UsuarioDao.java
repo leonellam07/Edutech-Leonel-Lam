@@ -6,6 +6,7 @@
 package com.edutech.javaee.finaltest.dao;
 
 import com.edutech.javaee.finaltest.model.Usuario;
+import java.util.List;
 import javax.persistence.NoResultException;
 
 /**
@@ -14,9 +15,16 @@ import javax.persistence.NoResultException;
  */
 public class UsuarioDao extends GenericDao<Usuario> {
 
+    public List<Usuario> listar() {
+        return this.em.createNamedQuery("Usuario.buscarTodos", Usuario.class)
+                .getResultList();
+    }
+
     public Usuario buscarId(Integer idUsuario) {
         try {
-            return this.em.find(Usuario.class, idUsuario);
+            return this.em.createNamedQuery("Usuario.buscarId", Usuario.class)
+                    .setParameter("id", idUsuario)
+                    .getSingleResult();
         } catch (NoResultException ex) {
             return null;
         }
