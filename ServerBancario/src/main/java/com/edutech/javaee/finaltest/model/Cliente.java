@@ -67,6 +67,10 @@ public class Cliente implements Serializable {
     @Lob
     private byte[] imagen;
 
+    private String nombreImagen;
+
+    private String mymeType;
+
     public Cliente() {
     }
 
@@ -171,6 +175,22 @@ public class Cliente implements Serializable {
 
     public void setImagen(byte[] imagen) {
         this.imagen = imagen;
+    }
+
+    public String getNombreImagen() {
+        return nombreImagen;
+    }
+
+    public void setNombreImagen(String nombreImagen) {
+        this.nombreImagen = nombreImagen;
+    }
+
+    public String getMymeType() {
+        return mymeType;
+    }
+
+    public void setMymeType(String mymeType) {
+        this.mymeType = mymeType;
     }
 
 }

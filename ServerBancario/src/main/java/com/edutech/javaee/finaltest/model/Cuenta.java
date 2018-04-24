@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     ,
     @NamedQuery(name = "Cuenta.buscarTodo", query = "SELECT DISTINCT u FROM Cuenta u LEFT JOIN FETCH u.cliente LEFT JOIN FETCH u.tipoCuenta")
     ,
-    @NamedQuery(name = "Cuenta.buscarTarjeta", query = "SELECT DISTINCT u FROM Cuenta u LEFT JOIN FETCH u.cliente LEFT JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.cliente.tarjetaDebito.numero = :numero")
+    @NamedQuery(name = "Cuenta.buscarTarjeta", query = "SELECT DISTINCT u FROM Cuenta u LEFT JOIN FETCH u.cliente LEFT JOIN FETCH u.tipoCuenta LEFT JOIN FETCH u.listaTransacciones WHERE u.cliente.tarjetaDebito.numero = :numero ")
 })
 public class Cuenta implements Serializable {
 

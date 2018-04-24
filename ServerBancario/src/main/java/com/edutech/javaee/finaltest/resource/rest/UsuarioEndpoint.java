@@ -7,6 +7,7 @@ package com.edutech.javaee.finaltest.resource.rest;
 
 import com.edutech.javaee.finaltest.bll.UsuarioBll;
 import com.edutech.javaee.finaltest.dto.ErrorMessageDto;
+import com.edutech.javaee.finaltest.dto.TokenUserDto;
 import com.edutech.javaee.finaltest.model.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 import javax.transaction.RollbackException;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -28,7 +30,7 @@ import javax.ws.rs.core.Response;
  * @author leolp
  */
 @Stateless
-@Path("/usuario")
+@Path("/usuarios")
 public class UsuarioEndpoint {
 
     @Inject
@@ -78,7 +80,7 @@ public class UsuarioEndpoint {
     }
 
     @DELETE
-    @Path("{user}")
+    @Path("{id}")
     @Produces({"application/json"})
     public Response eliminar(@PathParam("id") Integer id) {
         Usuario usuario = this.userBll.eliminarRegistro(id);
@@ -91,6 +93,19 @@ public class UsuarioEndpoint {
         }
 
         return Response.ok(usuario).build();
+    }
+
+    @POST
+    @Path("/login")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response login(@FormParam("codigo") String codigo, @FormParam("password") String password) {
+        TokenUserDto token = this.userBll.validarLogin(codigo, password);
+        if (token != null) {
+            return Response.status(Response.Status.CREATED).entity(token).build();
+        }
+
+        return Response.status(Response.Status.UNAUTHORIZED).build();
     }
 
 }

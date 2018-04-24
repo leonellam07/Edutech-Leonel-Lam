@@ -1,12 +1,14 @@
 package com.edutech.javaee.finaltest.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -21,6 +23,9 @@ public class Rol implements Serializable {
 
     private String nombre;
     private String descripcion;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "rol")
+    private List<AsignacionRol> listaAsignRoles;
 
     public Rol() {
     }
@@ -58,6 +63,15 @@ public class Rol implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    @XmlTransient
+    public List<AsignacionRol> getListaAsignRoles() {
+        return listaAsignRoles;
+    }
+
+    public void setListaAsignRoles(List<AsignacionRol> listaAsignRoles) {
+        this.listaAsignRoles = listaAsignRoles;
     }
 
 }

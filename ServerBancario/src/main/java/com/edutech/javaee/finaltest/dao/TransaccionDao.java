@@ -15,13 +15,13 @@ import java.util.List;
 public class TransaccionDao extends GenericDao<Transaccion> {
 
     public List<Transaccion> listaTransacciones(Integer idCuenta) {
-        return this.em.createQuery("SELECT DISTINCT u FROM Transaccion u WHERE u.cuenta.id = :id", Transaccion.class)
-                .setParameter("id", idCuenta)
+        return this.em.createNamedQuery("Transaccion.ultimasTransc", Transaccion.class)
+                .setParameter("idCuenta", idCuenta)
                 .getResultList();
     }
 
     public Double total(Integer idCuenta) {
-        return this.em.createNamedQuery("Transaccion.findMonto", Double.class)
+        return this.em.createNamedQuery("Transaccion.montoTotal", Double.class)
                 .setParameter("idcuenta", idCuenta)
                 .getSingleResult();
     }

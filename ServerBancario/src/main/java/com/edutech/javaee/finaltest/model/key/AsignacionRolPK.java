@@ -9,11 +9,13 @@ import com.edutech.javaee.finaltest.model.Rol;
 import com.edutech.javaee.finaltest.model.Usuario;
 import java.io.Serializable;
 import java.util.Objects;
+import javax.persistence.Embeddable;
 
 /**
  *
  * @author leolp
  */
+@Embeddable
 public class AsignacionRolPK implements Serializable {
 
     private Usuario usuario;

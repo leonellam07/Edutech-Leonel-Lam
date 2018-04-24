@@ -23,6 +23,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -31,7 +32,9 @@ import javax.persistence.Transient;
 @Entity
 @Table(name = "TRANSACCION")
 @NamedQueries({
-    @NamedQuery(name = "Transaccion.findMonto", query = "Select SUM(d.monto) from Transaccion d WHERE d.cuenta.id = :idcuenta")
+    @NamedQuery(name = "Transaccion.montoTotal", query = "Select SUM(d.monto) from Transaccion d WHERE d.cuenta.id = :idcuenta")
+    ,
+    @NamedQuery(name = "Transaccion.ultimasTransc", query = "SELECT DISTINCT u FROM Transaccion u WHERE u.cuenta.id = :idCuenta ORDER BY u.id DESC")
 })
 public class Transaccion implements Serializable {
 
@@ -88,6 +91,7 @@ public class Transaccion implements Serializable {
         this.id = id;
     }
 
+    @XmlTransient
     public Cuenta getCuenta() {
         return cuenta;
     }

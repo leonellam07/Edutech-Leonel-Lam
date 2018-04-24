@@ -84,7 +84,7 @@ public class TarjetaDebitoEndpoint {
                 null
         ));
         if (respuesta != null) {
-            return Response.ok(entity).build();
+            return Response.ok(respuesta).build();
         }
         return Response
                 .status(Response.Status.NOT_ACCEPTABLE)
@@ -98,6 +98,7 @@ public class TarjetaDebitoEndpoint {
     @Consumes({"application/json"})
     @Produces({"application/json"})
     public Response debito(TransaccionDto entity) {
+        
         Transaccion respuesta = this.tranBll.debitar(new Transaccion(
                 this.ctaBll.buscarId(entity.getCuenta().getId()),
                 entity.getMonto(),
@@ -106,7 +107,7 @@ public class TarjetaDebitoEndpoint {
                 null
         ));
         if (respuesta != null) {
-            return Response.ok(entity).build();
+            return Response.ok(respuesta).build();
         }
         return Response
                 .status(Response.Status.NOT_ACCEPTABLE)

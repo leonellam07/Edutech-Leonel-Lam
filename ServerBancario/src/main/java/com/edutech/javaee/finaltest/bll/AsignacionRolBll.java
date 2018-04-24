@@ -20,7 +20,7 @@ public class AsignacionRolBll {
     private AsignacionRolDao asgRolDao;
 
     public List<AsignacionRol> lista() {
-        return this.asgRolDao.listar(AsignacionRol.class);
+        return this.asgRolDao.listar();
     }
 
     public List<AsignacionRol> listaRolesXUsuario(Integer idUsuario) {

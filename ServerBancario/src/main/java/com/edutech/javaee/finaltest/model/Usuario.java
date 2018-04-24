@@ -1,12 +1,17 @@
 package com.edutech.javaee.finaltest.model;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,6 +23,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @Entity
 @Table(name = "USUARIO")
+@NamedQueries({
+    @NamedQuery(name = "Usuario.login", query = "SELECT u FROM Usuario u LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas WHERE u.codigo = :codigo AND u.password = :password")
+    ,
+        @NamedQuery(name = "Usuario.buscarCodigo", query = "SELECT u FROM Usuario u LEFT JOIN FETCH u.cliente c LEFT JOIN FETCH c.listaCuentas WHERE u.codigo = :codigo")
+})
 public class Usuario implements Serializable {
 
     @Id
@@ -35,6 +45,9 @@ public class Usuario implements Serializable {
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_cliente", referencedColumnName = "id")
     private Cliente cliente;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<AsignacionRol> listaAsignRoles;
 
     public Usuario() {
     }
@@ -113,6 +126,15 @@ public class Usuario implements Serializable {
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+
+    @XmlTransient
+    public List<AsignacionRol> getListaAsignRoles() {
+        return listaAsignRoles;
+    }
+
+    public void setListaAsignRoles(List<AsignacionRol> listaAsignRoles) {
+        this.listaAsignRoles = listaAsignRoles;
     }
 
 }

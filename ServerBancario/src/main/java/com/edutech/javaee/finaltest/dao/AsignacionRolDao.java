@@ -17,7 +17,13 @@ public class AsignacionRolDao extends GenericDao<AsignacionRol> {
     public List<AsignacionRol> listaXUsuario(Integer idUsuario) {
         return this.em
                 .createNamedQuery("AsignacionRol.buscar", AsignacionRol.class)
-                .setParameter("idAsignacionRol", idUsuario)
+                .setParameter("idUsuario", idUsuario)
+                .getResultList();
+    }
+    
+     public List<AsignacionRol> listar() {
+        return this.em
+                .createNamedQuery("AsignacionRol.buscarTodo", AsignacionRol.class)
                 .getResultList();
     }
 

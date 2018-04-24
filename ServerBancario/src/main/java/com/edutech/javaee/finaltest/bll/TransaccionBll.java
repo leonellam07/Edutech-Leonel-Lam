@@ -29,8 +29,7 @@ public class TransaccionBll {
         Double total = this.tranDao.total(entity.getCuenta().getId());
         if (total - entity.getMonto() > 0) {
             entity.setMonto(0 - entity.getMonto());
-            this.tranDao.guardar(entity);
-            return entity;
+            return this.tranDao.guardar(entity);
         }
 
         return null;
@@ -54,12 +53,10 @@ public class TransaccionBll {
                     "Transferencia de la cuenta:{" + entity.getCuenta().getId() + "}, " + entity.getDetalle(),
                     entity.getIdCuentaxTransferir()
             );
-            this.tranDao.guardar(transferencia);
-
+            this.tranDao.guardar(transferencia); // guardar deposito a la segunda cuenta {idCuentaxTransferir}
             entity.setMonto(0 - entity.getMonto());
-            this.tranDao.guardar(entity);
 
-            return entity;
+            return this.tranDao.guardar(entity); //guardar debito de la cuenta
         }
 
         return null;
@@ -68,7 +65,6 @@ public class TransaccionBll {
     public Transaccion depositar(Transaccion entity) {
         entity.setTipoTransaccion(new TipoTransaccion(2, null, null));
         entity.setIdCuentaxTransferir(null);
-        this.tranDao.guardar(entity);
-        return entity;
+        return this.tranDao.guardar(entity);
     }
 }

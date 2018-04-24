@@ -69,6 +69,9 @@ public class ClienteBll {
             cliente.setNit(entity.getNit());
             cliente.setNombre(entity.getNombre());
             cliente.setMuni(this.munDao.buscar(entity.getMuni().getId()));
+            cliente.setImagen(entity.getImagen());
+            cliente.setMymeType(entity.getMymeType());
+            cliente.setNombreImagen(entity.getNombreImagen());
             this.cliDao.editar(cliente);
         }
 

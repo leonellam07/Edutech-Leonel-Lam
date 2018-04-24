@@ -6,7 +6,9 @@
 package com.edutech.javaee.finaltest.bll;
 
 import com.edutech.javaee.finaltest.dao.UsuarioDao;
+import com.edutech.javaee.finaltest.dto.TokenUserDto;
 import com.edutech.javaee.finaltest.model.Usuario;
+import com.edutech.javaee.finaltest.operations.jwtToken;
 import java.util.List;
 import javax.inject.Inject;
 
@@ -18,6 +20,8 @@ public class UsuarioBll {
 
     @Inject
     private UsuarioDao userDao;
+    @Inject
+    private jwtToken tokenEncrypt;
 
     public List<Usuario> listar() {
         return this.userDao.listar(Usuario.class);
@@ -25,6 +29,10 @@ public class UsuarioBll {
 
     public Usuario buscarId(Integer id) {
         return this.userDao.buscarId(id);
+    }
+    
+    public Usuario buscarCodigo(String codigo){
+        return this.userDao.buscarCodigo(codigo);
     }
 
     public Usuario crearRegistro(Usuario entity) {
@@ -48,5 +56,10 @@ public class UsuarioBll {
 
     public Usuario eliminarRegistro(Integer idUsuario) {
         return this.userDao.eliminar(this.buscarId(idUsuario));
+    }
+
+    public TokenUserDto validarLogin(String codigo, String password) {
+        Usuario usuario = this.userDao.login(codigo, password);
+        return tokenEncrypt.create(usuario);
     }
 }

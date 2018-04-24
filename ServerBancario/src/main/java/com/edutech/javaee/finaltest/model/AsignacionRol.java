@@ -6,6 +6,7 @@
 package com.edutech.javaee.finaltest.model;
 
 import com.edutech.javaee.finaltest.model.key.AsignacionRolPK;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
@@ -26,10 +27,11 @@ import javax.persistence.Temporal;
 @Entity
 @Table(name = "ASIGNACION_ROL")
 @IdClass(AsignacionRolPK.class)
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @NamedQueries({
-    @NamedQuery(name = "AsignacionRol.buscar", query = "SELECT DISTINCT u FROM AsignacionRol u  WHERE u.usuario.id = :idAsignacionRol")
+    @NamedQuery(name = "AsignacionRol.buscar", query = "SELECT DISTINCT u FROM AsignacionRol u LEFT JOIN FETCH u.usuario LEFT JOIN FETCH u.rol  WHERE u.usuario.id = :idUsuario")
     ,
-    @NamedQuery(name = "AsignacionRol.buscarTodo", query = "SELECT DISTINCT u FROM AsignacionRol u ")
+    @NamedQuery(name = "AsignacionRol.buscarTodo", query = "SELECT DISTINCT u FROM AsignacionRol u LEFT JOIN FETCH u.usuario LEFT JOIN FETCH u.rol ")
 })
 public class AsignacionRol implements Serializable {
 
